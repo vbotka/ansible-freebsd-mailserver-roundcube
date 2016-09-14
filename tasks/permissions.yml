@@ -2,14 +2,16 @@
 
 # Not idempotent (NI)
 
-- name: NI Set permissions u=rwx,g=rx of /usr/local/www/roundcube/
+- name: NI Set permissions of /usr/local/www/roundcube/
   file: >
     path="/usr/local/www/roundcube/"
     state="directory"
     owner="root"
     group="www"
-    mode="u=rwx,g=rx"
+    mode="u+rwx,g+rx,o-rwx"
     recurse="yes"
+
+#   mode="u=rwx,g=rx"
 
 - name: NI Set group writable /usr/local/www/roundcube/temp
   file: >
