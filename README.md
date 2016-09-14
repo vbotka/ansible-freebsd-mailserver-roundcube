@@ -5,7 +5,7 @@ freebsd-mailserver-roundcube
 
 Ansible role. Install and configure Roundcube webmail at FreeBSD. In development. See TODO below.
 
-[galaxy.ansible.com/vbotka/ansible-freebsd-mailserver-roundcube/](https://galaxy.ansible.com/vbotka/ansible-freebsd-mailserver-roundcube/)
+[galaxy.ansible.com/vbotka/freebsd-mailserver-roundcube/](https://galaxy.ansible.com/vbotka/freebsd-mailserver-roundcube/)
 
 Tested with FreeBSD 10.3 at [digitalocean.com](https://cloud.digitalocean.com)
 
