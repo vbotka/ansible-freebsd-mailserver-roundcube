@@ -13,14 +13,35 @@ Tested with FreeBSD 10.3 at [digitalocean.com](https://cloud.digitalocean.com)
 Requirements
 ------------
 
-No requiremenst.
+Requires:
+- [vbotka.ansible-freebsd-mailserver](https://galaxy.ansible.com/vbotka/ansible-freebsd-mailserver/)
+- [vbotka.apache](https://galaxy.ansible.com/vbotka/apache/)
+
+Recommended:
+- [vbotka.ansible-freebsd-mailserver-spamassassin](https://galaxy.ansible.com/vbotka/ansible-freebsd-mailserver-spamassassin/)
+- [vbotka.ansible-freebsd-mailserver-sieve](https://galaxy.ansible.com/vbotka/ansible-freebsd-mailserver-sieve/)
 
 
 Variables
 ---------
 
-TBD.
+roundcube_mysql_password: "MYSQL-PASSWORD"
 
+```
+GRANT ALL PRIVILEGES ON roundcube.* TO roundcube@localhost IDENTIFIED BY 'MYSQL-PASSWORD';
+```
+
+Defaults
+
+```
+roundcube_zoneinfo: "UTC"
+roundcube_mysql_password: "MYSQL-PASSWORD"
+roundcube_debug_level: "5"
+roundcube_smtp_server: "localhost"
+roundcube_support_url: "www.example.com/support/"
+roundcube_product_name: "Roundcube Webmail"
+roundcube_plugins: "'archive', 'zipdownload', 'managesieve', 'password'"
+```
 
 
 Workflow
