@@ -35,13 +35,13 @@ Workflow
 2) Install role.
 
 ```
-> ansible-galaxy install vbotka.ansible-freebsd-mailserver-roundcube
+> ansible-galaxy install vbotka.freebsd-mailserver-roundcube
 ```
 
 3) Fit variables.
 
 ```
-~/.ansible/roles/vbotka.ansible-freebsd-mailserver-roundcube/vars/main.yml
+~/.ansible/roles/vbotka.freebsd-mailserver-roundcube/vars/main.yml
 ```
 
 4) Create playbook and inventory.
@@ -53,7 +53,7 @@ Workflow
   become: yes
   become_method: sudo
   roles:
-    - role: vbotka.ansible-freebsd-mailserver-roundcube
+    - role: vbotka.freebsd-mailserver-roundcube
 ```
 
 ```
