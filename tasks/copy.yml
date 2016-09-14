@@ -1,0 +1,31 @@
+---
+
+- name: Create /usr/local/etc/php.ini
+  copy: >
+    src="/usr/local/etc/php.ini-production"
+    dest="/usr/local/etc/php.ini"
+    force="no"
+    remote_src="yes"
+
+#  Templates are used instead of copy the samples.
+
+#- name: Copy Roundcube configuration files and set permissions
+#  copy: >
+#    src="/usr/local/www/roundcube/config/config.inc.php.sample"
+#    dest="/usr/local/www/roundcube/config/config.inc.php"
+#    force="no"
+#    remote_src="yes"
+
+#- name: Copy Roundcube plugins configuration and set permissions
+#  copy: >
+#    src="/usr/local/www/roundcube/plugins/managesieve/config.inc.php.dist"
+#    dest="/usr/local/www/roundcube/plugins/managesieve/config.inc.php"
+#    force="no"
+#    remote_src="yes"
+
+#- name: Copy Roundcube plugins password and set permissions
+#  copy: >
+#    src="/usr/local/www/roundcube/plugins/password/config.inc.php.dist"
+#    dest="/usr/local/www/roundcube/plugins/password/config.inc.php"
+#    force="no"
+#    remote_src="yes"

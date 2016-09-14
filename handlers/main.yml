@@ -1,0 +1,14 @@
+---
+# handlers for freebsd-mailserver-roundcube
+
+- name: enable and start apache
+  service: name="{{apache_version}}" state="started" enabled="yes"
+
+- name: disable and stop apache
+  service: name="{{apache_version}}" state="stopped" enabled="no"
+
+- name: restart apache
+  service: name="{{apache_version}}" state="restarted"
+
+- name: reload apache
+  service: name="{{apache_version}}" state="reloaded"

@@ -1,0 +1,28 @@
+---
+
+- name: Configure /usr/local/etc/php.ini
+  lineinfile: >
+    dest="/usr/local/etc/php.ini"
+    regexp="^date.timezone"
+    line="date.timezone = \"{{ roundcube_zoneinfo  }}\""
+    insertafter="date.timezone"
+    backup="yes"
+  notify: reload apache
+  tags: config_roundcube_timezone
+
+# Templates are used instead of copy samples.
+#
+#- name: Configure /usr/local/www/roundcube/config/config.inc.php
+#  lineinfile: >
+#    dest="/usr/local/www/roundcube/config/config.inc.php"
+#    regexp="{{ item.regexp }}"
+#    line="{{ item.line }}"
+#    backup="yes"
+#  with_items:
+#    - { regexp: "config['db_dsnw'] ",
+#        line: "{{'$'}}config['db_dsnw'] = 'mysql://roundcube:{{roundcube_mysql_password}}@localhost/roundcube';" }
+#    - { regexp: "config['debug_level']  ", line: "{{'$'}}config['debug_level'] = {{roundcube_debug_level}}; " }
+#    - { regexp: "config['smtp_server'] ", line: "{{'$}}config['smtp_server'] = '{{roundcube_smtp_server}}'; " }
+#    - { regexp: " ", line: "{{'$}}config['support_url'] = '{{'roundcube_support_url}}'; " }
+#    - { regexp: " ", line: "{{'$}} " }
+#  tags: config_roundcube

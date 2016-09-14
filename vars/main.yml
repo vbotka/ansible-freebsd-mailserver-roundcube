@@ -1,0 +1,5 @@
+---
+# vars for freebsd-mailserver-roundcube
+
+# Change MYSQL-PASSWORD for roundcube
+#roundcube_mysql_password: "MYSQL-PASSWORD"

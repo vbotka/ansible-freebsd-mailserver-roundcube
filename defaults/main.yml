@@ -1,0 +1,12 @@
+---
+# defaults for freebsd-mailserver-roundcube
+
+# Change MYSQL-PASSWORD for roundcube
+roundcube_zoneinfo: "UTC"
+roundcube_mysql_password: "MYSQL-PASSWORD"
+roundcube_debug_level: "5"
+roundcube_smtp_server: "localhost"
+roundcube_support_url: "www.example.com/support/"
+roundcube_product_name: "Roundcube Webmail"
+#roundcube_plugins: "'archive', 'zipdownload', 'managesieve', 'password', 'automatic_addressbook'"
+roundcube_plugins: "'archive', 'zipdownload', 'managesieve', 'password'"
