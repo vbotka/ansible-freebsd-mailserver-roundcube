@@ -104,7 +104,7 @@ ansible-playbook ~/.ansible/playbooks/freebsd-mailserver-roundcube.yml
 References
 ----------
 
-- [FreeBSD Postfix – Page 13 – Roundcube Install](http://www.purplehat.org/?page_id=20))
+- [FreeBSD Postfix – Page 13 – Roundcube Install](http://www.purplehat.org/?page_id=20)
 - [Guide On How To Install Roundcube On FreeBSD](http://www.xfiles.dk/guide-on-how-to-install-roundcube-on-freebsd/)
 
 
