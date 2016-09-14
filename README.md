@@ -13,7 +13,7 @@ Tested with FreeBSD 10.3 at [digitalocean.com](https://cloud.digitalocean.com)
 Requirements
 ------------
 
-Requires:
+Required:
 - [vbotka.ansible-freebsd-mailserver](https://galaxy.ansible.com/vbotka/ansible-freebsd-mailserver/)
 - [vbotka.apache](https://galaxy.ansible.com/vbotka/apache/)
 
