@@ -115,6 +115,12 @@ TODO
 - add mysql configuration
 
 ```
+# cat /usr/local/etc/mysql/my.cnf
+[mysqld]
+bind-address = 127.0.0.1
+```
+
+```
 Create MySQL database and user for Roundcube:
 mysql -u root mysql
 mysql> CREATE DATABASE roundcube;
