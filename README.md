@@ -115,6 +115,11 @@ TODO
 - add mysql configuration
 
 ```
+/etc/rc.conf
+mysql_enable="YES"
+```
+
+```
 # cat /usr/local/etc/mysql/my.cnf
 [mysqld]
 bind-address = 127.0.0.1
