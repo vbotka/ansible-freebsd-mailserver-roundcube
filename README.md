@@ -3,7 +3,7 @@ freebsd-mailserver-roundcube
 
 [![Build Status](https://travis-ci.org/vbotka/ansible-freebsd-mailserver-roundcube.svg?branch=master)](https://travis-ci.org/vbotka/freebsd-mailserver-roundcube)
 
-Ansible role. Install and configure Roundcube webmail on FreeBSD. In development. See TODO below.
+Ansible role. Install and configure [Roundcube](https://roundcube.net/) webmail on FreeBSD. In development. See TODO below.
 
 [galaxy.ansible.com/vbotka/freebsd-mailserver-roundcube/](https://galaxy.ansible.com/vbotka/freebsd-mailserver-roundcube/)
 
@@ -106,6 +106,7 @@ References
 
 - [FreeBSD Postfix – Page 13 – Roundcube Install](http://www.purplehat.org/?page_id=20)
 - [Guide On How To Install Roundcube On FreeBSD](http://www.xfiles.dk/guide-on-how-to-install-roundcube-on-freebsd/)
+- [Roundcube Community Forum](http://www.roundcubeforum.net/)
 
 
 TODO
