@@ -80,7 +80,7 @@ Workflow
 ```
 > cat ~/.ansible/hosts
 [mailserver]
-<WEBSERVER-IP-OR-FQDN>
+<MAILSERVER-IP-OR-FQDN>
 
 [mailserver:vars]
 ansible_connection=ssh
