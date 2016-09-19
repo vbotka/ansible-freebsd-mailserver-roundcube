@@ -1,4 +1,5 @@
 <?php
+/* {{ansible_managed}} */
 $config['managesieve_port'] = null;
 $config['managesieve_host'] = 'localhost';
 $config['managesieve_auth_type'] = null;

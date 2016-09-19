@@ -1,47 +1,43 @@
 ---
 
+- name: Install aspell packages
+  pkgng: >
+    name='{{item}}'
+    state='present'
+  with_items: "{{roundcube_aspell_packages}}"
+  when: freebsd_install_method == "packages"
+  tags: packages
+
 - name: Install packages
-  pkgng: name='{{item}}' state='present'
-  with_items:
-    - roundcube
-    - mysql56-client
-    - mysql56-server
-    - mod_php56
-    - php56
-    - php56-bz2
-    - php56-ctype
-    - php56-curl
-    - php56-dom
-    - php56-exif
-    - php56-extensions
-    - php56-fileinfo
-    - php56-filter
-    - php56-ftp
-    - php56-gd
-    - php56-hash
-    - php56-iconv
-    - php56-json
-    - php56-ldap
-    - php56-mbstring
-    - php56-mcrypt
-    - php56-mysql
-    - php56-mysqli
-    - php56-opcache
-    - php56-openssl
-    - php56-pdo
-    - php56-pdo_mysql
-    - php56-pdo_sqlite
-    - php56-phar
-    - php56-posix
-    - php56-pspell
-    - php56-session
-    - php56-simplexml
-    - php56-sqlite3
-    - php56-tokenizer
-    - php56-wddx
-    - php56-xml
-    - php56-xmlreader
-    - php56-xmlwriter
-    - php56-xsl
-    - php56-zip
-    - php56-zlib
+  pkgng: >
+    name='{{item}}'
+    state='present'
+  with_items: "{{roundcube_packages}}"
+  when: freebsd_install_method == "packages"
+  tags: packages
+
+- name: Install aspell packages (from ports)
+  portinstall: >
+    name='{{item}}'
+    state='present'
+    use_packages="{{freebsd_use_packages}}"
+  with_items: "{{roundcube_aspell_packages}}"
+  when: freebsd_install_method == "ports"
+  tags: ports
+
+- name: Install packages (from ports)
+  portinstall: >
+    name='{{item}}'
+    state='present'
+    use_packages="{{freebsd_use_packages}}"
+  with_items: "{{roundcube_packages}}"
+  when: freebsd_install_method == "ports"
+  tags: ports
+
+# TODO
+# Configure ports with ZTS
+# +[x] ZTS       Force Zend Thread Safety (ZTS) build
+# grep ZTS /var/db/ports/lang_php56*/options
+# OPTIONS_FILE_SET+=ZTS
+# grep ZTS /var/db/ports/www_mod_php56/options
+# OPTIONS_FILE_SET+=ZTS

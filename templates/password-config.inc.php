@@ -1,4 +1,5 @@
 <?php
+/* {{ansible_managed}} */
 $config['password_driver'] = 'sql';
 $config['password_confirm_current'] = true;
 $config['password_minimum_length'] = 8;

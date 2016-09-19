@@ -1,4 +1,5 @@
 <?php
+/* {{ansible_managed}} */
 $config = {{'array'}}();
 $config['debug_level'] = 5;
 $config['db_dsnw'] = 'mysql://roundcube:{{roundcube_mysql_password}}@localhost/roundcube';

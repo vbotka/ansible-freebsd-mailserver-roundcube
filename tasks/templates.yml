@@ -7,6 +7,7 @@
     owner="root"
     group="www"
     mode="0640"
+  notify: reload apache
   tags: template_config-config.inc.php
 
 - name: Configure /usr/local/www/roundcube/plugins/managesieve/config.inc.php
@@ -16,6 +17,7 @@
     owner="root"
     group="www"
     mode="0640"
+  notify: reload apache
   tags: template_managesieve-config.inc.php
 
 - name: Configure /usr/local/www/roundcube/plugins/password/config.inc.php
@@ -25,4 +27,5 @@
     owner="root"
     group="www"
     mode="0640"
+  notify: reload apache
   tags: template_password-config.inc.php
