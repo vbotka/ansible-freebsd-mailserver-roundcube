@@ -18,7 +18,7 @@ Required:
 
 Recommended:
 - [vbotka.ansible-freebsd-mailserver-spamassassin](https://galaxy.ansible.com/vbotka/ansible-freebsd-mailserver-spamassassin/)
-- [vbotka.ansible-freebsd-mailserver-sieve](https://galaxy.ansible.com/vbotka/ansible-freebsd-mailserver-sieve/)
+- [vbotka.ansible-freebsd-mailserver-sieve](https://galaxy.ansible.com/vbotka/freebsd-mailserver-sieve/)
 
 
 Variables
