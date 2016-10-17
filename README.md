@@ -3,9 +3,7 @@ freebsd-mailserver-roundcube
 
 [![Build Status](https://travis-ci.org/vbotka/ansible-freebsd-mailserver-roundcube.svg?branch=master)](https://travis-ci.org/vbotka/freebsd-mailserver-roundcube)
 
-Ansible role. Install and configure [Roundcube](https://roundcube.net/) webmail on FreeBSD. In development. See TODO below.
-
-[galaxy.ansible.com/vbotka/freebsd-mailserver-roundcube/](https://galaxy.ansible.com/vbotka/freebsd-mailserver-roundcube/)
+[Ansible role.](https://galaxy.ansible.com/vbotka/freebsd-mailserver-roundcube/) Install and configure [Roundcube](https://roundcube.net/) webmail on FreeBSD.
 
 Tested with FreeBSD 10.3 at [digitalocean.com](https://cloud.digitalocean.com)
 
@@ -112,18 +110,6 @@ References
 
 TODO
 ----
-
-
-```
-Create MySQL database and user for Roundcube:
-mysql -u root mysql
-mysql> CREATE DATABASE roundcube;
-mysql> GRANT ALL PRIVILEGES ON roundcube.* TO roundcube@localhost IDENTIFIED BY '<sanitized>';
-mysql> QUIT;
-Populate the Roundcube database:
-cd /usr/local/www/roundcube/SQL
-mysql -u roundcube -p roundcube < mysql.initial.sql
-```
 
 - add automatic_addressbook plugin
 - configure sieve
