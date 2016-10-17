@@ -1,0 +1,18 @@
+---
+
+- name: Create MySQL database roundcube
+  mysql_db: >
+    name="roundcube"
+    state="present"
+    config_file="{{roundcube_mysql_server_conf}}"
+  notify: populate roundcube database
+  tags: create_mysql_db_roundcube
+
+- name: Create MySQL user roundcube
+  mysql_user: >
+    name="roundcube"
+    state="present"
+    config_file="{{roundcube_mysql_server_conf}}"
+    password="{{roundcube_mysql_password}}"
+    priv="roundcube.*:ALL"
+  tags: create_mysql_user_roundcube

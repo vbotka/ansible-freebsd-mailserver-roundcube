@@ -12,3 +12,6 @@
 
 - name: reload apache
   service: name="{{apache_version}}" state="reloaded"
+
+- name: populate roundcube database
+  command: "cd /usr/local/www/roundcube/SQL; mysql -u roundcube -p{{roundcube_mysql_password}} roundcube < mysql.initial.sql"

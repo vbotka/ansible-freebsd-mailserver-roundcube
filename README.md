@@ -15,6 +15,7 @@ Requirements
 
 Required:
 - [vbotka.ansible-freebsd-mailserver](https://galaxy.ansible.com/vbotka/ansible-freebsd-mailserver/)
+- [vbotka.freebsd-mysql](https://galaxy.ansible.com/vbotka/freebsd-mysql/)
 - [vbotka.apache](https://galaxy.ansible.com/vbotka/apache/)
 
 Recommended:
@@ -112,18 +113,6 @@ References
 TODO
 ----
 
-- add mysql configuration
-
-```
-/etc/rc.conf
-mysql_enable="YES"
-```
-
-```
-# cat /usr/local/etc/mysql/my.cnf
-[mysqld]
-bind-address = 127.0.0.1
-```
 
 ```
 Create MySQL database and user for Roundcube:

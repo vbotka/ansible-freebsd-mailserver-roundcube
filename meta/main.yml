@@ -1,6 +1,6 @@
 galaxy_info:
   author: Vladimir Botka
-  description: Install and configure Roundcube webmail at FreeBSD
+  description: Install and configure Roundcube webmail at FreeBSD.
   company: https://botka.link
   github_branch: master
   license: BSD
@@ -16,4 +16,5 @@ galaxy_info:
     - webmail
 dependencies:
   - vbotka.ansible-freebsd-mailserver
+  - vbotka.ansible-freebsd-mysql
   - vbotka.apache

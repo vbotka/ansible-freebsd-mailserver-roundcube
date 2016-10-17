@@ -4,29 +4,35 @@
 - include: packages.yml
   tags:
     - packages
-    - freebsd-mailserver-roundcube_packages
+    - freebsd-mailserver-roundcube-packages
     - freebsd-mailserver-roundcube
 
 - include: copy.yml
   tags:
-    - roundcube-configuration-copy
-    - freebsd-mailserver-roundcube_roundcube-configuration-copy
+    - roundcube-copy
+    - freebsd-mailserver-roundcube-copy
     - freebsd-mailserver-roundcube
 
 - include: templates.yml
   tags:
-    - roundcube-configuration-templates
-    - freebsd-mailserver-roundcube_roundcube-configuration-templates
+    - roundcube-templates
+    - freebsd-mailserver-roundcube-templates
     - freebsd-mailserver-roundcube
 
 - include: permissions.yml
   tags:
-    - roundcube-permissions-set
-    - freebsd-mailserver-roundcube_roundcube-permissions-set
+    - roundcube-permissions
+    - freebsd-mailserver-roundcube-permissions
+    - freebsd-mailserver-roundcube
+
+- include: mysql.yml
+  tags:
+    - roundcube-mysql
+    - freebsd-mailserver-roundcube-mysql
     - freebsd-mailserver-roundcube
 
 - include: configuration.yml
   tags:
     - roundcube-configuration
-    - freebsd-mailserver-roundcube_roundcube-configuration
+    - freebsd-mailserver-roundcube-configuration
     - freebsd-mailserver-roundcube
