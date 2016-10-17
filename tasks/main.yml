@@ -25,11 +25,11 @@
     - freebsd-mailserver-roundcube-permissions
     - freebsd-mailserver-roundcube
 
-- include: mysql.yml
-  tags:
-    - roundcube-mysql
-    - freebsd-mailserver-roundcube-mysql
-    - freebsd-mailserver-roundcube
+#- include: mysql.yml
+#  tags:
+#    - roundcube-mysql
+#    - freebsd-mailserver-roundcube-mysql
+#    - freebsd-mailserver-roundcube
 
 - include: configuration.yml
   tags:
