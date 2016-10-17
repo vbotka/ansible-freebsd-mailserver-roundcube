@@ -2,30 +2,33 @@
 
 - name: Configure /usr/local/www/roundcube/config/config.inc.php
   template: >
-    src="config-config.inc.php"
+    src="config-config.inc.php.j2"
     dest="/usr/local/www/roundcube/config/config.inc.php"
     owner="root"
     group="www"
     mode="0640"
+    backup="yes"
   notify: reload apache
   tags: template_config-config.inc.php
 
 - name: Configure /usr/local/www/roundcube/plugins/managesieve/config.inc.php
   template: >
-    src="managesieve-config.inc.php"
+    src="managesieve-config.inc.php.j2"
     dest="/usr/local/www/roundcube/plugins/managesieve/config.inc.php"
     owner="root"
     group="www"
     mode="0640"
+    backup="yes"
   notify: reload apache
   tags: template_managesieve-config.inc.php
 
 - name: Configure /usr/local/www/roundcube/plugins/password/config.inc.php
   template: >
-    src="password-config.inc.php"
+    src="password-config.inc.php.j2"
     dest="/usr/local/www/roundcube/plugins/password/config.inc.php"
     owner="root"
     group="www"
     mode="0640"
+    backup="yes"
   notify: reload apache
   tags: template_password-config.inc.php

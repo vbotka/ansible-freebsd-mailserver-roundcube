@@ -5,6 +5,9 @@ freebsd_install_method: "packages"
 #freebsd_install_method: "ports"
 #freebsd_use_packages: "yes"
 
+bsd_mysql_version: "56"
+bsd_php_version: "56"
+
 # Change MYSQL-PASSWORD for roundcube
 roundcube_zoneinfo: "UTC"
 roundcube_mysql_password: "MYSQL-PASSWORD"
@@ -16,48 +19,48 @@ roundcube_product_name: "Roundcube Webmail"
 #roundcube_plugins: "'archive', 'zipdownload', 'managesieve', 'password', 'automatic_addressbook'"
 roundcube_plugins: "'archive', 'zipdownload', 'managesieve', 'password'"
 roundcube_aspell_packages:
-  - aspell
-  - en-aspell
+  - "aspell"
+  - "en-aspell"
 roundcube_packages:
-  - roundcube
-  - mysql56-client
-  - mysql56-server
-  - mod_php56
-  - php56
-  - php56-bz2
-  - php56-ctype
-  - php56-curl
-  - php56-dom
-  - php56-exif
-  - php56-extensions
-  - php56-fileinfo
-  - php56-filter
-  - php56-ftp
-  - php56-gd
-  - php56-hash
-  - php56-iconv
-  - php56-json
-  - php56-ldap
-  - php56-mbstring
-  - php56-mcrypt
-  - php56-mysql
-  - php56-mysqli
-  - php56-opcache
-  - php56-openssl
-  - php56-pdo
-  - php56-pdo_mysql
-  - php56-pdo_sqlite
-  - php56-phar
-  - php56-posix
-  - php56-pspell
-  - php56-session
-  - php56-simplexml
-  - php56-sqlite3
-  - php56-tokenizer
-  - php56-wddx
-  - php56-xml
-  - php56-xmlreader
-  - php56-xmlwriter
-  - php56-xsl
-  - php56-zip
-  - php56-zlib
+  - "roundcube"
+  - "mysql{{bsd_mysql_version}}-client"
+  - "mysql{{bsd_mysql_version}}-server"
+  - "mod_php{{ bsd_php_version }}"
+  - "php{{ bsd_php_version }}"
+  - "php{{ bsd_php_version }}-bz2"
+  - "php{{ bsd_php_version }}-ctype"
+  - "php{{ bsd_php_version }}-curl"
+  - "php{{ bsd_php_version }}-dom"
+  - "php{{ bsd_php_version }}-exif"
+  - "php{{ bsd_php_version }}-extensions"
+  - "php{{ bsd_php_version }}-fileinfo"
+  - "php{{ bsd_php_version }}-filter"
+  - "php{{ bsd_php_version }}-ftp"
+  - "php{{ bsd_php_version }}-gd"
+  - "php{{ bsd_php_version }}-hash"
+  - "php{{ bsd_php_version }}-iconv"
+  - "php{{ bsd_php_version }}-json"
+  - "php{{ bsd_php_version }}-ldap"
+  - "php{{ bsd_php_version }}-mbstring"
+  - "php{{ bsd_php_version }}-mcrypt"
+  - "php{{ bsd_php_version }}-mysql"
+  - "php{{ bsd_php_version }}-mysqli"
+  - "php{{ bsd_php_version }}-opcache"
+  - "php{{ bsd_php_version }}-openssl"
+  - "php{{ bsd_php_version }}-pdo"
+  - "php{{ bsd_php_version }}-pdo_mysql"
+  - "php{{ bsd_php_version }}-pdo_sqlite"
+  - "php{{ bsd_php_version }}-phar"
+  - "php{{ bsd_php_version }}-posix"
+  - "php{{ bsd_php_version }}-pspell"
+  - "php{{ bsd_php_version }}-session"
+  - "php{{ bsd_php_version }}-simplexml"
+  - "php{{ bsd_php_version }}-sqlite3"
+  - "php{{ bsd_php_version }}-tokenizer"
+  - "php{{ bsd_php_version }}-wddx"
+  - "php{{ bsd_php_version }}-xml"
+  - "php{{ bsd_php_version }}-xmlreader"
+  - "php{{ bsd_php_version }}-xmlwriter"
+  - "php{{ bsd_php_version }}-xsl"
+  - "php{{ bsd_php_version }}-zip"
+  - "php{{ bsd_php_version }}-zlib"

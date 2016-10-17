@@ -16,7 +16,7 @@
   when: freebsd_install_method == "packages"
   tags: packages
 
-- name: Install aspell packages (from ports)
+- name: Install aspell packages (ports)
   portinstall: >
     name='{{item}}'
     state='present'
@@ -25,7 +25,7 @@
   when: freebsd_install_method == "ports"
   tags: ports
 
-- name: Install packages (from ports)
+- name: Install packages (ports)
   portinstall: >
     name='{{item}}'
     state='present'

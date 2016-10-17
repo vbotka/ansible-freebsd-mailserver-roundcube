@@ -6,7 +6,7 @@
     state="directory"
     owner="root"
     group="www"
-    mode="u+rwx,g+rx,o-rwx"
+    mode="u+rwX,g+rX,o-rwx"
     recurse="yes"
 
 - name: Set group writable /usr/local/www/roundcube/temp
