@@ -16,5 +16,5 @@ galaxy_info:
     - webmail
 dependencies:
   - vbotka.ansible-freebsd-mailserver
-  - vbotka.ansible-freebsd-mysql
+  - vbotka.freebsd-mysql
   - vbotka.apache

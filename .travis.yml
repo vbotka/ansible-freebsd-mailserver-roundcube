@@ -17,7 +17,7 @@ install:
 
   # Fetch dependencies
   - git clone https://github.com/vbotka/ansible-freebsd-mailserver.git tests/roles/vbotka.ansible-freebsd-mailserver
-  - git clone https://github.com/vbotka/ansible-freebsd-mailserver.git tests/roles/vbotka.ansible-freebsd-mysql
+  - git clone https://github.com/vbotka/ansible-freebsd-mysql.git tests/roles/vbotka.freebsd-mysql
   - git clone https://github.com/vbotka/ansible-apache.git tests/roles/vbotka.apache
 
   # Check ansible version
