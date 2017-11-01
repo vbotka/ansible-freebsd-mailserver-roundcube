@@ -6,7 +6,7 @@
     state='present'
   with_items: "{{roundcube_aspell_packages}}"
   when: freebsd_install_method == "packages"
-  tags: packages
+  tags: bsd_packages
 
 - name: Install packages
   pkgng: >
@@ -14,7 +14,7 @@
     state='present'
   with_items: "{{roundcube_packages}}"
   when: freebsd_install_method == "packages"
-  tags: packages
+  tags: bsd_packages
 
 - name: Install aspell packages (ports)
   portinstall: >
@@ -23,7 +23,7 @@
     use_packages="{{freebsd_use_packages}}"
   with_items: "{{roundcube_aspell_packages}}"
   when: freebsd_install_method == "ports"
-  tags: ports
+  tags: bsd_ports
 
 - name: Install packages (ports)
   portinstall: >
@@ -32,7 +32,7 @@
     use_packages="{{freebsd_use_packages}}"
   with_items: "{{roundcube_packages}}"
   when: freebsd_install_method == "ports"
-  tags: ports
+  tags: bsd_ports
 
 # TODO
 # Configure ports with ZTS
@@ -41,3 +41,5 @@
 # OPTIONS_FILE_SET+=ZTS
 # grep ZTS /var/db/ports/www_mod_php56/options
 # OPTIONS_FILE_SET+=ZTS
+
+# EOF
