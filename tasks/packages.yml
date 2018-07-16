@@ -1,45 +1,30 @@
 ---
 
-- name: Install aspell packages
-  pkgng: >
-    name='{{item}}'
-    state='present'
-  with_items: "{{roundcube_aspell_packages}}"
+- name: "packages: Install aspell packages"
+  pkgng:
+    name: "{{ item }}"
+  loop: "{{roundcube_aspell_packages}}"
   when: freebsd_install_method == "packages"
-  tags: bsd_packages
 
-- name: Install packages
-  pkgng: >
-    name='{{item}}'
-    state='present'
-  with_items: "{{roundcube_packages}}"
+- name: "packages: Install roundcube packages"
+  pkgng:
+    name: "{{ item }}"
+  loop: "{{roundcube_packages}}"
   when: freebsd_install_method == "packages"
-  tags: bsd_packages
 
-- name: Install aspell packages (ports)
-  portinstall: >
-    name='{{item}}'
-    state='present'
-    use_packages="{{freebsd_use_packages}}"
-  with_items: "{{roundcube_aspell_packages}}"
+- name: "packages: Install aspell ports"
+  portinstall:
+    name: "{{ item }}"
+    use_packages: "{{ freebsd_use_packages }}"
+  loop: "{{roundcube_aspell_packages}}"
   when: freebsd_install_method == "ports"
-  tags: bsd_ports
 
-- name: Install packages (ports)
-  portinstall: >
-    name='{{item}}'
-    state='present'
-    use_packages="{{freebsd_use_packages}}"
-  with_items: "{{roundcube_packages}}"
+- name: "packages: Install roundcube ports"
+  portinstall:
+    name: "{{item}}"
+    use_packages: "{{ freebsd_use_packages }}"
+  loop: "{{ roundcube_packages }}"
   when: freebsd_install_method == "ports"
-  tags: bsd_ports
-
-# TODO
-# Configure ports with ZTS
-# +[x] ZTS       Force Zend Thread Safety (ZTS) build
-# grep ZTS /var/db/ports/lang_php56*/options
-# OPTIONS_FILE_SET+=ZTS
-# grep ZTS /var/db/ports/www_mod_php56/options
-# OPTIONS_FILE_SET+=ZTS
 
 # EOF
+...

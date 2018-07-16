@@ -1,39 +1,23 @@
 ---
 # tasks for freebsd-mailserver-roundcube
 
-- include: packages.yml
-  tags:
-    - bsd_packages
-    - bsd_ports
-    - freebsd-mailserver-roundcube-packages
-    - freebsd-mailserver-roundcube
+- import_tasks: packages.yml
+  tags: fm_roundcube_packages
 
-- include: copy.yml
-  tags:
-    - roundcube-copy
-    - freebsd-mailserver-roundcube-copy
-    - freebsd-mailserver-roundcube
+- import_tasks: permissions.yml
+  tags: fm_roundcube_permissions
 
-- include: templates.yml
-  tags:
-    - roundcube-templates
-    - freebsd-mailserver-roundcube-templates
-    - freebsd-mailserver-roundcube
+- import_tasks: copy.yml
+  tags: fm_roundcube_copy
 
-- include: permissions.yml
-  tags:
-    - roundcube-permissions
-    - freebsd-mailserver-roundcube-permissions
-    - freebsd-mailserver-roundcube
+- import_tasks: configuration.yml
+  tags: fm_roundcube_configuration
 
-#- include: mysql.yml
-#  tags:
-#    - roundcube-mysql
-#    - freebsd-mailserver-roundcube-mysql
-#    - freebsd-mailserver-roundcube
+- import_tasks: templates.yml
+  tags: fm_roundcube_templates
 
-- include: configuration.yml
-  tags:
-    - roundcube-configuration
-    - freebsd-mailserver-roundcube-configuration
-    - freebsd-mailserver-roundcube
+- import_tasks: mysql_initial_sql.yml
+  tags: fm_roundcube_initial_sql
+
+# EOF
+...

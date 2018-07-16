@@ -3,9 +3,7 @@ freebsd-mailserver-roundcube
 
 [![Build Status](https://travis-ci.org/vbotka/ansible-freebsd-mailserver-roundcube.svg?branch=master)](https://travis-ci.org/vbotka/freebsd-mailserver-roundcube)
 
-[Ansible role.](https://galaxy.ansible.com/vbotka/freebsd-mailserver-roundcube/) Install and configure [Roundcube](https://roundcube.net/) webmail on FreeBSD.
-
-Tested with FreeBSD 10.3 at [digitalocean.com](https://cloud.digitalocean.com)
+[Ansible role.](https://galaxy.ansible.com/vbotka/freebsd-mailserver-roundcube/) FreeBSD. Install and configure [Roundcube](https://roundcube.net/) webmail.
 
 
 Requirements
@@ -24,6 +22,12 @@ Recommended:
 Variables
 ---------
 
+Review the defaults and examples in vars.
+
+
+MySQL password for user *roundcube*
+---------------------------------
+
 roundcube_mysql_password: "MYSQL-PASSWORD"
 
 ```
@@ -31,8 +35,12 @@ GRANT ALL PRIVILEGES ON roundcube.* TO roundcube@localhost IDENTIFIED BY 'MYSQL-
 ```
 
 Defaults
+--------
 
 ```
+fm_roundcube_debug: False
+fm_roundcube_initial_sql: False
+
 roundcube_zoneinfo: "UTC"
 roundcube_mysql_password: "MYSQL-PASSWORD"
 roundcube_debug_level: "5"
@@ -46,55 +54,60 @@ roundcube_plugins: "'archive', 'zipdownload', 'managesieve', 'password'"
 Workflow
 --------
 
-1) Change shell to /bin/sh.
+By default the database is not populated *fm_roundcube_initial_sql=False*. Let's configure Roundcube first (1-5) and populate the database separately (6).
+
+1) Change shell to /bin/sh
 
 ```
-> ansible mailserver -e 'ansible_shell_type=csh ansible_shell_executable=/bin/csh' -a 'sudo pw usermod freebsd -s /bin/sh'
+# ansible mailserver -e 'ansible_shell_type=csh ansible_shell_executable=/bin/csh' -a 'sudo pw usermod freebsd -s /bin/sh'
 ```
 
-2) Install role.
+2) Install role
 
 ```
-> ansible-galaxy install vbotka.freebsd-mailserver-roundcube
+# ansible-galaxy install vbotka.freebsd-mailserver-roundcube
 ```
 
-3) Fit variables.
+3) Fit variables
 
 ```
-~/.ansible/roles/vbotka.freebsd-mailserver-roundcube/vars/main.yml
+# editor vbotka.freebsd-mailserver-roundcube/vars/main.yml
 ```
 
-4) Create playbook and inventory.
+4) Create playbook and inventory
 
 ```
-> cat ~/.ansible/playbooks/freebsd-mailserver-roundcube.yml
----
+# cat freebsd-mailserver-roundcube.yml
+
 - hosts: mailserver
-  become: yes
-  become_method: sudo
   roles:
     - role: vbotka.freebsd-mailserver-roundcube
 ```
 
 ```
-> cat ~/.ansible/hosts
+# cat hosts
 [mailserver]
 <MAILSERVER-IP-OR-FQDN>
-
 [mailserver:vars]
 ansible_connection=ssh
 ansible_user=freebsd
-ansible_python_interpreter=/usr/local/bin/python2
+ansible_python_interpreter=/usr/local/bin/python2.7
 ansible_perl_interpreter=/usr/local/bin/perl
 ```
 
-5) Install and configure Roundcube webmail..
+5) Install and configure Roundcube webmail
 
 ```
-ansible-playbook ~/.ansible/playbooks/freebsd-mailserver-roundcube.yml
+# ansible-playbook freebsd-mailserver-roundcube.yml
 ```
 
-6) Consider to test the webmail
+6) Populate Roundcube database
+
+```
+# ansible-playbook -e fm_roundcube_initial_sql=True freebsd-mailserver-roundcube.yml -t fm_roundcube_initial_sql
+```
+
+7) Consider to test the webmail
 
    - http://validator.w3.org
    - https://www.ssllabs.com

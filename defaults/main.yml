@@ -1,28 +1,44 @@
 ---
 # defaults for freebsd-mailserver-roundcube
 
+fm_roundcube_debug: False
+fm_roundcube_initial_sql: False
+
 freebsd_install_method: "packages"
 #freebsd_install_method: "ports"
 #freebsd_use_packages: "yes"
 
-bsd_mysql_version: "56"
-bsd_php_version: "56"
-
+# MySQL
 # Change MYSQL-PASSWORD for roundcube
-roundcube_zoneinfo: "UTC"
+bsd_mysql_version: "57"
 roundcube_mysql_password: "MYSQL-PASSWORD"
+roundcube_mysql_server_conf: "/usr/local/etc/mysql/my.cnf"
+
+# PHP
+bsd_php_version: "72"
+bsd_php_ini_conf:
+  - { regex: "date.timezone", val: "{{ roundcube_zoneinfo }}", after: "date.timezone" }
+
+# Roundcube
+roundcube_zoneinfo: "UTC"
 roundcube_debug_level: "5"
 roundcube_smtp_server: "localhost"
-roundcube_mysql_server_conf: "/usr/local/etc/mysql/my.cnf"
 roundcube_support_url: "www.example.com/support/"
-roundcube_product_name: "Roundcube Webmail"
+roundcube_product_name: "example.com Roundcube Webmail"
 #roundcube_plugins: "'archive', 'zipdownload', 'managesieve', 'password', 'automatic_addressbook'"
 roundcube_plugins: "'archive', 'zipdownload', 'managesieve', 'password'"
+
+roundcube_data_owner: "www"
+roundcube_data_group: "wheel"
+roundcube_data_mode: "u=rwX,g=rX-w,o=-rwx"
+
+# Packages
 roundcube_aspell_packages:
   - "aspell"
   - "en-aspell"
+
 roundcube_packages:
-  - "roundcube"
+  - "roundcube-php{{ bsd_php_version }}"
   - "mysql{{bsd_mysql_version}}-client"
   - "mysql{{bsd_mysql_version}}-server"
   - "mod_php{{ bsd_php_version }}"
@@ -42,8 +58,7 @@ roundcube_packages:
   - "php{{ bsd_php_version }}-json"
   - "php{{ bsd_php_version }}-ldap"
   - "php{{ bsd_php_version }}-mbstring"
-  - "php{{ bsd_php_version }}-mcrypt"
-  - "php{{ bsd_php_version }}-mysql"
+  - "php{{ bsd_php_version }}-pecl-mcrypt"
   - "php{{ bsd_php_version }}-mysqli"
   - "php{{ bsd_php_version }}-opcache"
   - "php{{ bsd_php_version }}-openssl"
@@ -64,3 +79,9 @@ roundcube_packages:
   - "php{{ bsd_php_version }}-xsl"
   - "php{{ bsd_php_version }}-zip"
   - "php{{ bsd_php_version }}-zlib"
+
+# - "php{{ bsd_php_version }}-mysql"
+# - "php{{ bsd_php_version }}-mcrypt"
+
+# EOF
+...

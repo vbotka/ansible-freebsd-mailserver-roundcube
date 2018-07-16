@@ -1,28 +1,18 @@
 ---
 
-- name: Set permissions of /usr/local/www/roundcube/
-  file: >
-    path="/usr/local/www/roundcube/"
-    state="directory"
-    owner="root"
-    group="www"
-    mode="u+rwX,g+rX,o-rwx"
-    recurse="yes"
+- name: "permissions: chown -R {{ roundcube_data_owner }}:{{ roundcube_data_group }} /usr/local/www/roundcube"
+  shell: "chown -R {{ roundcube_data_owner }}:{{ roundcube_data_group }} roundcube"
+  args:
+    chdir: /usr/local/www
+    warn: False
+  changed_when: False
 
-- name: Set group writable /usr/local/www/roundcube/temp
-  file: >
-    path="/usr/local/www/roundcube/temp"
-    state="directory"
-    owner="root"
-    group="www"
-    mode="g+w"
-    recurse="yes"
+- name: "permissions: chmod -R {{ roundcube_data_mode }} /usr/local/www/roundcube"
+  shell: "chmod -R {{ roundcube_data_mode }} /usr/local/www/roundcube"
+  args:
+    chdir: /usr/local/www
+    warn: False
+  changed_when: False
 
-- name: Set group writable /usr/local/www/roundcube/logs
-  file: >
-    path="/usr/local/www/roundcube/logs"
-    state="directory"
-    owner="root"
-    group="www"
-    mode="g+w"
-    recurse="yes"
+# EOF
+...

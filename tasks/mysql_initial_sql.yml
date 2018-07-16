@@ -1,0 +1,22 @@
+---
+# freebsd-mailserver-roundcube
+# Populate the Roundcube database
+# By default fm_roundcube_initial.sql=False
+
+- name: "mysql_initial_sql: populate Roundcube database."
+  shell: "mysql -u roundcube -p{{ roundcube_mysql_password }} roundcube < mysql.initial.sql"
+  args:
+    chdir: /usr/local/www/roundcube/SQL
+  register: initial_sql
+  when:
+    - fm_roundcube_initial_sql
+
+- name: "mysql_initial_sql: debug"
+  debug:
+    msg: "{{ initial_sql.stdout_lines }}"
+  when:
+    - fm_roundcube_initial_sql
+    - fm_roundcube_debug
+
+# EOF
+...
