@@ -10,12 +10,12 @@ Requirements
 ------------
 
 Required:
-- [vbotka.ansible-freebsd-mailserver](https://galaxy.ansible.com/vbotka/ansible-freebsd-mailserver/)
+- [vbotka.ansible-freebsd-mailserver](https://galaxy.ansible.com/vbotka/freebsd-mailserver/)
 - [vbotka.freebsd-mysql](https://galaxy.ansible.com/vbotka/freebsd-mysql/)
 - [vbotka.apache](https://galaxy.ansible.com/vbotka/apache/)
 
 Recommended:
-- [vbotka.ansible-freebsd-mailserver-spamassassin](https://galaxy.ansible.com/vbotka/ansible-freebsd-mailserver-spamassassin/)
+- [vbotka.ansible-freebsd-mailserver-spamassassin](https://galaxy.ansible.com/vbotka/freebsd-mailserver-spamassassin/)
 - [vbotka.ansible-freebsd-mailserver-sieve](https://galaxy.ansible.com/vbotka/freebsd-mailserver-sieve/)
 
 
