@@ -1,22 +1,22 @@
-freebsd-mailserver-roundcube
+freebsd_mailserver_roundcube
 ============================
 
 [![Build Status](https://travis-ci.org/vbotka/ansible-freebsd-mailserver-roundcube.svg?branch=master)](https://travis-ci.org/vbotka/freebsd-mailserver-roundcube)
 
-[Ansible role.](https://galaxy.ansible.com/vbotka/freebsd-mailserver-roundcube/) FreeBSD. Install and configure [Roundcube](https://roundcube.net/) webmail.
+[Ansible role.](https://galaxy.ansible.com/vbotka/freebsd_mailserver_roundcube/) FreeBSD. Install and configure [Roundcube](https://roundcube.net/) webmail.
 
 
 Requirements
 ------------
 
 Required:
-- [vbotka.ansible-freebsd-mailserver](https://galaxy.ansible.com/vbotka/freebsd-mailserver/)
-- [vbotka.freebsd-mysql](https://galaxy.ansible.com/vbotka/freebsd-mysql/)
+- [vbotka.freebsd_mailserver](https://galaxy.ansible.com/vbotka/freebsd_mailserver/)
+- [vbotka.freebsd_mysql](https://galaxy.ansible.com/vbotka/freebsd_mysql/)
 - [vbotka.apache](https://galaxy.ansible.com/vbotka/apache/)
 
 Recommended:
-- [vbotka.ansible-freebsd-mailserver-spamassassin](https://galaxy.ansible.com/vbotka/freebsd-mailserver-spamassassin/)
-- [vbotka.ansible-freebsd-mailserver-sieve](https://galaxy.ansible.com/vbotka/freebsd-mailserver-sieve/)
+- [vbotka.freebsd_mailserver_spamassassin](https://galaxy.ansible.com/vbotka/freebsd_mailserver_spamassassin/)
+- [vbotka.freebsd-mailserver_sieve](https://galaxy.ansible.com/vbotka/freebsd_mailserver_sieve/)
 
 
 Variables
@@ -65,13 +65,13 @@ By default the database is not populated *fm_roundcube_initial_sql=False*. Let's
 2) Install role
 
 ```
-# ansible-galaxy install vbotka.freebsd-mailserver-roundcube
+# ansible-galaxy install vbotka.freebsd_mailserver_roundcube
 ```
 
 3) Fit variables
 
 ```
-# editor vbotka.freebsd-mailserver-roundcube/vars/main.yml
+# editor vbotka.freebsd_mailserver_roundcube/vars/main.yml
 ```
 
 4) Create playbook and inventory
@@ -81,7 +81,7 @@ By default the database is not populated *fm_roundcube_initial_sql=False*. Let's
 
 - hosts: mailserver
   roles:
-    - role: vbotka.freebsd-mailserver-roundcube
+    - role: vbotka.freebsd_mailserver_roundcube
 ```
 
 ```

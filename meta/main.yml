@@ -1,4 +1,5 @@
 galaxy_info:
+  role_name: freebsd_mailserver_roundcube
   author: Vladimir Botka
   description: FreeBSD. Install and configure Roundcube webmail.
   company: https://botka.link
@@ -14,6 +15,6 @@ galaxy_info:
     - freebsd
     - roundcube
 dependencies:
-  - vbotka.freebsd-mailserver
-  - vbotka.freebsd-mysql
+  - vbotka.freebsd_mailserver
+  - vbotka.freebsd_mysql
   - vbotka.apache
