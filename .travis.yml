@@ -16,9 +16,12 @@ install:
   - pip install ansible
 
   # Fetch dependencies
-  - git clone https://github.com/vbotka/ansible-freebsd-mailserver.git tests/roles/vbotka.freebsd-mailserver
-  - git clone https://github.com/vbotka/ansible-freebsd-mysql.git tests/roles/vbotka.freebsd-mysql
-  - git clone https://github.com/vbotka/ansible-apache.git tests/roles/vbotka.apache
+  #- git clone https://github.com/vbotka/ansible-freebsd-mailserver.git tests/roles/vbotka.freebsd_mailserver
+  #- git clone https://github.com/vbotka/ansible-freebsd-mysql.git tests/roles/vbotka.freebsd_mysql
+  #- git clone https://github.com/vbotka/ansible-apache.git tests/roles/vbotka.apache
+  - ansible-galaxy install -p tests/roles/ vbotka.freebsd_mailserver
+  - ansible-galaxy install -p tests/roles/ vbotka.freebsd_mysql
+  - ansible-galaxy install -p tests/roles/ vbotka.apache
 
   # Check ansible version
   - ansible --version
@@ -32,3 +35,6 @@ script:
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
+
+# EOF
+...
