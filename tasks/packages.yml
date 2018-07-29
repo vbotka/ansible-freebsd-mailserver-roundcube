@@ -3,20 +3,20 @@
 - name: "packages: Install aspell packages"
   pkgng:
     name: "{{ item }}"
-  loop: "{{roundcube_aspell_packages}}"
+  loop: "{{ roundcube_aspell_packages }}"
   when: freebsd_install_method == "packages"
 
 - name: "packages: Install roundcube packages"
   pkgng:
     name: "{{ item }}"
-  loop: "{{roundcube_packages}}"
+  loop: "{{ roundcube_packages }}"
   when: freebsd_install_method == "packages"
 
 - name: "packages: Install aspell ports"
   portinstall:
     name: "{{ item }}"
     use_packages: "{{ freebsd_use_packages }}"
-  loop: "{{roundcube_aspell_packages}}"
+  loop: "{{ roundcube_aspell_packages }}"
   when: freebsd_install_method == "ports"
 
 - name: "packages: Install roundcube ports"
