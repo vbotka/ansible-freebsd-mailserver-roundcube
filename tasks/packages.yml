@@ -21,7 +21,7 @@
 
 - name: "packages: Install roundcube ports"
   portinstall:
-    name: "{{item}}"
+    name: "{{ item }}"
     use_packages: "{{ freebsd_use_packages }}"
   loop: "{{ roundcube_packages }}"
   when: freebsd_install_method == "ports"

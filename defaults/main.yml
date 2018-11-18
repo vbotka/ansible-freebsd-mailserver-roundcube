@@ -39,8 +39,8 @@ roundcube_aspell_packages:
 
 roundcube_packages:
   - "roundcube-php{{ bsd_php_version }}"
-  - "mysql{{bsd_mysql_version}}-client"
-  - "mysql{{bsd_mysql_version}}-server"
+  - "mysql{{ bsd_mysql_version }}-client"
+  - "mysql{{ bsd_mysql_version }}-server"
   - "mod_php{{ bsd_php_version }}"
   - "php{{ bsd_php_version }}"
   - "php{{ bsd_php_version }}-bz2"
