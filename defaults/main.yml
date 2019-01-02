@@ -7,6 +7,8 @@ fm_roundcube_initial_sql: False
 freebsd_install_method: "packages"
 #freebsd_install_method: "ports"
 #freebsd_use_packages: "yes"
+freebsd_install_retries: 10
+freebsd_install_delay: 5
 
 # MySQL
 # Change MYSQL-PASSWORD for roundcube
