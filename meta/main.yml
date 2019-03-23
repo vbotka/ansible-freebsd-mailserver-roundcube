@@ -1,3 +1,4 @@
+---
 galaxy_info:
   role_name: freebsd_mailserver_roundcube
   author: Vladimir Botka
@@ -18,3 +19,4 @@ dependencies:
   - vbotka.freebsd_mailserver
   - vbotka.freebsd_mysql
   - vbotka.apache
+...
