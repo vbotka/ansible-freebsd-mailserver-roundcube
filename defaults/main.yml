@@ -17,7 +17,7 @@ roundcube_mysql_password: "MYSQL-PASSWORD"
 roundcube_mysql_server_conf: "/usr/local/etc/mysql/my.cnf"
 
 # PHP
-bsd_php_version: "72"
+bsd_php_version: "71"
 bsd_php_ini_conf:
   - { regex: "date.timezone", val: "{{ roundcube_zoneinfo }}", after: "date.timezone" }
 
@@ -60,7 +60,6 @@ roundcube_packages:
   - "php{{ bsd_php_version }}-json"
   - "php{{ bsd_php_version }}-ldap"
   - "php{{ bsd_php_version }}-mbstring"
-  - "php{{ bsd_php_version }}-pecl-mcrypt"
   - "php{{ bsd_php_version }}-mysqli"
   - "php{{ bsd_php_version }}-opcache"
   - "php{{ bsd_php_version }}-openssl"
@@ -82,8 +81,9 @@ roundcube_packages:
   - "php{{ bsd_php_version }}-zip"
   - "php{{ bsd_php_version }}-zlib"
 
+  - "php{{ bsd_php_version }}-mcrypt"
+# - "php{{ bsd_php_version }}-pecl-mcrypt"
 # - "php{{ bsd_php_version }}-mysql"
-# - "php{{ bsd_php_version }}-mcrypt"
 
 # EOF
 ...
