@@ -1,13 +1,12 @@
-freebsd_mailserver_roundcube
-============================
+# freebsd_mailserver_roundcube
 
 [![Build Status](https://travis-ci.org/vbotka/ansible-freebsd-mailserver-roundcube.svg?branch=master)](https://travis-ci.org/vbotka/freebsd-mailserver-roundcube)
 
 [Ansible role.](https://galaxy.ansible.com/vbotka/freebsd_mailserver_roundcube/) FreeBSD. Install and configure [Roundcube](https://roundcube.net/) webmail.
 
+Please feel free to [share your feedback and report issues](https://github.com/vbotka/ansible-freebsd-mailserver-roundcube/issues).
 
-Requirements
-------------
+## Requirements
 
 Required:
 - [vbotka.freebsd_mailserver](https://galaxy.ansible.com/vbotka/freebsd_mailserver/)
@@ -19,27 +18,26 @@ Recommended:
 - [vbotka.freebsd-mailserver_sieve](https://galaxy.ansible.com/vbotka/freebsd_mailserver_sieve/)
 
 
-Variables
----------
+## Variables
 
 Review the defaults and examples in vars.
 
 
-MySQL password for user *roundcube*
----------------------------------
+1) Configure MySQL password for user *roundcube*
 
+```
 roundcube_mysql_password: "MYSQL-PASSWORD"
-
+```
+This password has been used by [vbotka.freebsd_mysql](https://galaxy.ansible.com/vbotka/freebsd_mysql/) to grant privileges to user *roundcube@localhost*
 ```
 GRANT ALL PRIVILEGES ON roundcube.* TO roundcube@localhost IDENTIFIED BY 'MYSQL-PASSWORD';
 ```
 
-Defaults
---------
+## Defaults
 
 ```
-fm_roundcube_debug: False
-fm_roundcube_initial_sql: False
+fm_roundcube_debug: false
+fm_roundcube_initial_sql: false
 
 roundcube_zoneinfo: "UTC"
 roundcube_mysql_password: "MYSQL-PASSWORD"
@@ -51,33 +49,32 @@ roundcube_plugins: "'archive', 'zipdownload', 'managesieve', 'password'"
 ```
 
 
-Workflow
---------
+## Workflow
 
-By default the database is not populated *fm_roundcube_initial_sql=False*. Let's configure Roundcube first (1-5) and populate the database separately (6).
+By default the database is not populated *fm_roundcube_initial_sql=False*. Let's configure Roundcube first (1-5) and populate the database later (6).
 
 1) Change shell to /bin/sh
 
 ```
-# ansible mailserver -e 'ansible_shell_type=csh ansible_shell_executable=/bin/csh' -a 'sudo pw usermod freebsd -s /bin/sh'
+shell> ansible mailserver -e 'ansible_shell_type=csh ansible_shell_executable=/bin/csh' -a 'sudo pw usermod freebsd -s /bin/sh'
 ```
 
 2) Install role
 
 ```
-# ansible-galaxy install vbotka.freebsd_mailserver_roundcube
+shell> ansible-galaxy install vbotka.freebsd_mailserver_roundcube
 ```
 
 3) Fit variables
 
 ```
-# editor vbotka.freebsd_mailserver_roundcube/vars/main.yml
+shell> editor vbotka.freebsd_mailserver_roundcube/vars/main.yml
 ```
 
 4) Create playbook and inventory
 
 ```
-# cat freebsd-mailserver-roundcube.yml
+shell> cat freebsd-mailserver-roundcube.yml
 
 - hosts: mailserver
   roles:
@@ -85,57 +82,53 @@ By default the database is not populated *fm_roundcube_initial_sql=False*. Let's
 ```
 
 ```
-# cat hosts
+shell> cat hosts
 [mailserver]
 <MAILSERVER-IP-OR-FQDN>
 [mailserver:vars]
 ansible_connection=ssh
 ansible_user=freebsd
-ansible_python_interpreter=/usr/local/bin/python3.6
+ansible_python_interpreter=/usr/local/bin/python3.7
 ansible_perl_interpreter=/usr/local/bin/perl
 ```
 
 5) Install and configure Roundcube webmail
 
 ```
-# ansible-playbook freebsd-mailserver-roundcube.yml
+shell> ansible-playbook freebsd-mailserver-roundcube.yml
 ```
 
 6) Populate Roundcube database
 
 ```
-# ansible-playbook -e fm_roundcube_initial_sql=True freebsd-mailserver-roundcube.yml -t fm_roundcube_initial_sql
+shell> ansible-playbook -e fm_roundcube_initial_sql=True freebsd-mailserver-roundcube.yml -t fm_roundcube_initial_sql
 ```
 
 7) Consider to test the webmail
 
-   - http://validator.w3.org
-   - https://www.ssllabs.com
+- http://validator.w3.org
+- https://www.ssllabs.com
 		
 
-References
-----------
+## References
 
 - [FreeBSD Postfix – Page 13 – Roundcube Install](http://www.purplehat.org/?page_id=20)
 - [Guide On How To Install Roundcube On FreeBSD](http://www.xfiles.dk/guide-on-how-to-install-roundcube-on-freebsd/)
 - [Roundcube Community Forum](http://www.roundcubeforum.net/)
 
 
-TODO
-----
+**TODO**
 
 - add automatic_addressbook plugin
 - configure sieve
 - configure pspell
 
 
-License
--------
+## License
 
 [![license](https://img.shields.io/badge/license-BSD-red.svg)](https://www.freebsd.org/doc/en/articles/bsdl-gpl/article.html)
 
 
-Author Information
-------------------
+## Author Information
 
 [Vladimir Botka](https://botka.link)
