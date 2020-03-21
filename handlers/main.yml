@@ -5,13 +5,13 @@
   service:
     name: "{{ apache_service }}"
     state: started
-    enabled: yes
+    enabled: true
 
 - name: disable and stop apache
   service:
     name: "{{ apache_service }}"
     state: stopped
-    enabled: no
+    enabled: false
 
 - name: restart apache
   service:

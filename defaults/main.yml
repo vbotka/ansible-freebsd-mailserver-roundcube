@@ -1,43 +1,44 @@
 ---
 # defaults for freebsd-mailserver-roundcube
 
-fm_roundcube_debug: False
-fm_roundcube_initial_sql: False
+fm_roundcube_debug: false
+fm_roundcube_backup_conf: false
+fm_roundcube_initial_sql: false
 
-freebsd_install_method: "packages"
-#freebsd_install_method: "ports"
-#freebsd_use_packages: "yes"
+freebsd_install_method: packages
+#freebsd_install_method: ports
+#freebsd_use_packages: true
 freebsd_install_retries: 10
 freebsd_install_delay: 5
 
 # MySQL
 # Change MYSQL-PASSWORD for roundcube
-bsd_mysql_version: "57"
-roundcube_mysql_password: "MYSQL-PASSWORD"
-roundcube_mysql_server_conf: "/usr/local/etc/mysql/my.cnf"
+bsd_mysql_version: 57
+roundcube_mysql_password: MYSQL-PASSWORD
+roundcube_mysql_server_conf: /usr/local/etc/mysql/my.cnf
 
 # PHP
-bsd_php_version: "71"
+bsd_php_version: 72
 bsd_php_ini_conf:
-  - { regex: "date.timezone", val: "{{ roundcube_zoneinfo }}", after: "date.timezone" }
+  - {regex: "date.timezone", val: "{{ roundcube_zoneinfo }}", after: "date.timezone"}
 
 # Roundcube
-roundcube_zoneinfo: "UTC"
-roundcube_debug_level: "5"
-roundcube_smtp_server: "localhost"
-roundcube_support_url: "www.example.com/support/"
-roundcube_product_name: "example.com Roundcube Webmail"
+roundcube_zoneinfo: UTC
+roundcube_debug_level: 5
+roundcube_smtp_server: localhost
+roundcube_support_url: www.example.com/support/
+roundcube_product_name: example.com Roundcube Webmail
 #roundcube_plugins: "'archive', 'zipdownload', 'managesieve', 'password', 'automatic_addressbook'"
 roundcube_plugins: "'archive', 'zipdownload', 'managesieve', 'password'"
 
-roundcube_data_owner: "www"
-roundcube_data_group: "wheel"
+roundcube_data_owner: www
+roundcube_data_group: wheel
 roundcube_data_mode: "u=rwX,g=rX-w,o=-rwx"
 
 # Packages
 roundcube_aspell_packages:
-  - "aspell"
-  - "en-aspell"
+  - textproc/aspell
+  - textproc/en-aspell
 
 roundcube_packages:
   - "roundcube-php{{ bsd_php_version }}"
@@ -81,8 +82,8 @@ roundcube_packages:
   - "php{{ bsd_php_version }}-zip"
   - "php{{ bsd_php_version }}-zlib"
 
-  - "php{{ bsd_php_version }}-mcrypt"
-# - "php{{ bsd_php_version }}-pecl-mcrypt"
+  - "php{{ bsd_php_version }}-pecl-mcrypt"
+# - "php{{ bsd_php_version }}-mcrypt"
 # - "php{{ bsd_php_version }}-mysql"
 
 # EOF

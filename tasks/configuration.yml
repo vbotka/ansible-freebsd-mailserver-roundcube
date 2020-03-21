@@ -5,8 +5,8 @@
     dest: "/usr/local/etc/php.ini"
     regexp: "^{{ item.regex }}"
     line: "{{ item.regex }} = \"{{ item.val }}\""
-    insertafter: "{{ item.after | default(omit) }}"
-    backup: yes
+    insertafter: "{{ item.after|default(omit) }}"
+    backup: "{{ fm_roundcube_backup_conf }}"
   loop: "{{ bsd_php_ini_conf }}"
   notify: reload apache
 

@@ -4,8 +4,8 @@
   copy:
     src: "/usr/local/etc/php.ini-production"
     dest: "/usr/local/etc/php.ini"
-    force: no
-    remote_src: yes
+    force: false
+    remote_src: true
 
 # EOF
 ...
