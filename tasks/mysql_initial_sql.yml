@@ -9,14 +9,14 @@
     chdir: /usr/local/www/roundcube/SQL
   register: initial_sql
   when:
-    - fm_roundcube_initial_sql
+    - fm_roundcube_initial_sql|bool
 
 - name: "mysql_initial_sql: debug"
   debug:
-    msg: "{{ initial_sql.stdout_lines }}"
+    var: initial_sql.stdout_lines
   when:
-    - fm_roundcube_initial_sql
-    - fm_roundcube_debug
+    - fm_roundcube_initial_sql|bool
+    - fm_roundcube_debug|bool
 
 # EOF
 ...
