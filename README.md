@@ -200,6 +200,7 @@ shell> tree /var/db/roundcube/enigma/
 - [FreeBSD Postfix – Page 13 – Roundcube Install](http://www.purplehat.org/?page_id=20)
 - [Guide On How To Install Roundcube On FreeBSD](http://www.xfiles.dk/guide-on-how-to-install-roundcube-on-freebsd/)
 - [Roundcube Community Forum](http://www.roundcubeforum.net/)
+- [Enigma plugin (PGP encryption) Roundcube signature](https://www.saic.it/enigma-plugin-pgp-encryption-roundcube-signature/)
 
 
 **TODO**
