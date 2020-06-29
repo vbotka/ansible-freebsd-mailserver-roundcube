@@ -12,6 +12,11 @@
       ansible_python_version [{{ ansible_python_version }}]
 
       fm_roundcube_backup_conf [{{ fm_roundcube_backup_conf }}]
+      fm_roundcube_apache [{{ fm_roundcube_apache }}]
+      fm_reload_webserver [{{ fm_reload_webserver }}]
+      fm_roundcube_initial_sql [{{ fm_roundcube_initial_sql }}]
+      roundcube_mysql_server_conf [{{ roundcube_mysql_server_conf }}]
+
       roundcube_zoneinfo [{{ roundcube_zoneinfo }}]
       roundcube_debug_level [{{ roundcube_debug_level }}]
       roundcube_smtp_server [{{ roundcube_smtp_server }}]
@@ -29,11 +34,10 @@
       roundcube_plugins [{{ roundcube_plugins }}]
       roundcube_plugins_conf
       {{ roundcube_plugins_conf|to_nice_yaml }}
-      fm_roundcube_apache [{{ fm_roundcube_apache }}]
-      fm_reload_webserver [{{ fm_reload_webserver }}]
-
-      fm_roundcube_initial_sql [{{ fm_roundcube_initial_sql }}]
-      roundcube_mysql_server_conf [{{ roundcube_mysql_server_conf }}]
+      roundcube_enigma_pgp_homedir [{{ roundcube_enigma_pgp_homedir }}]
+      roundcube_enigma_owner [{{ roundcube_enigma_owner }}]
+      roundcube_enigma_group [{{ roundcube_enigma_group }}]
+      roundcube_enigma_mode [{{ roundcube_enigma_mode }}]
 
       freebsd_install_method [{{ freebsd_install_method }}]
       freebsd_use_packages [{{ freebsd_use_packages }}]

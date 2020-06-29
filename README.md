@@ -42,11 +42,14 @@ GRANT ALL PRIVILEGES ON roundcube.* TO roundcube@localhost IDENTIFIED BY 'MYSQL-
 ```
 
 
-## Defaults
+## Defaults (selected)
 
 ```
-fm_roundcube_debug: false
+fm_roundcube_install: true
 fm_roundcube_initial_sql: false
+fm_roundcube_debug: false
+fm_roundcube_debug_classified: false
+fm_roundcube_backup_conf: false
 
 roundcube_zoneinfo: "UTC"
 roundcube_mysql_password: "MYSQL-PASSWORD"
@@ -54,13 +57,15 @@ roundcube_debug_level: "5"
 roundcube_smtp_server: "localhost"
 roundcube_support_url: "www.example.com/support/"
 roundcube_product_name: "Roundcube Webmail"
+
 roundcube_plugins_conf:
   archive:
     enabled: true
   managesieve:
     enabled: true
     conf:
-      - {key: managesieve_default, val: "'/usr/local/virtual/home/default.sieve'"}
+      - key: managesieve_default
+        val: "'/usr/local/virtual/home/default.sieve'"
   password:
     enabled: true
     conf:
@@ -73,6 +78,21 @@ roundcube_plugins_conf:
   zipdownload:
     enabled: true
     conf: []
+  enigma:
+    enabled: true
+    conf:
+      - key: enigma_pgp_homedir
+        val: "'{{ roundcube_enigma_pgp_homedir }}'"
+      - key: enigma_pgp_cipher_algo
+        val: "'AES256'"
+      - key: enigma_pgp_digest_algo
+        val: "'SHA512'"
+
+roundcube_enigma_pgp_homedir: /var/db/roundcube/enigma
+roundcube_enigma_owner: www
+roundcube_enigma_group: wheel
+roundcube_enigma_mode: "u=rwX,g=rX-w,o=-rwx"
+
 ```
 
 
@@ -147,7 +167,32 @@ shell> ansible-playbook freebsd-mailserver-roundcube.yml -t fm_roundcube_initial
 
 - http://validator.w3.org
 - https://www.ssllabs.com
-		
+
+
+## Plugins
+
+By default these plugins are enabled: archive, enigma, managesieve, password, zipdownload. See other plugins in the directory */usr/local/www/roundcube/plugins/*.
+
+### Archive
+
+### Enigma
+
+User's GnuPG data will be created in the dictionary stored in the variable *roundcube_enigma_pgp_homedir*
+
+```
+shell> tree /var/db/roundcube/enigma/
+/var/db/roundcube/enigma/
+└── user1
+    ├── pubring.gpg
+    └── secring.gpg
+```
+
+### Managesieve
+
+### Password
+
+### Zipdownload
+
 
 ## References
 

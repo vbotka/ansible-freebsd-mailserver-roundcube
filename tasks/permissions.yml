@@ -6,6 +6,7 @@
     chdir: /usr/local/www
     warn: false
   changed_when: false
+  tags: fm_roundcube_permissions_chown
 
 - name: "permissions: chmod -R {{ roundcube_data_mode }} /usr/local/www/roundcube"
   command: "chmod -R {{ roundcube_data_mode }} /usr/local/www/roundcube"
@@ -13,6 +14,17 @@
     chdir: /usr/local/www
     warn: false
   changed_when: false
+  tags: fm_roundcube_permissions_chmod
+
+- name: "permissions: Enigma plugin: Create {{ roundcube_enigma_pgp_homedir }}"
+  file:
+    state: directory
+    path: "{{ roundcube_enigma_pgp_homedir }}"
+    owner: "{{ roundcube_enigma_owner }}"
+    group: "{{ roundcube_enigma_group }}"
+    mode: "{{ roundcube_enigma_mode }}"
+  when: roundcube_plugins_conf.enigma.enabled|default(false)|bool
+  tags: fm_roundcube_permissions_enigma
 
 # EOF
 ...

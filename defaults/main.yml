@@ -44,15 +44,17 @@ roundcube_plugins_dir: /usr/local/www/roundcube/plugins
 # roundcube_plugins_conf ... Configuratino of plugins
 # key ...................... Plugin name
 #   enabled ................ Plugin enabled
-#   conf ................... Plugin configuration. Empty list is required to create
-#                            default configuration
+#   conf ................... Plugin configuration. Default configuration config.inc.php
+#                            will be created from config.inc.php.dist whem this attribute
+#                            exists
 roundcube_plugins_conf:
   archive:
     enabled: true
   managesieve:
     enabled: true
     conf:
-      - {key: managesieve_default, val: "'/usr/local/virtual/home/default.sieve'"}
+      - key: managesieve_default
+        val: "'/usr/local/virtual/home/default.sieve'"
   password:
     enabled: true
     conf:
@@ -65,6 +67,15 @@ roundcube_plugins_conf:
   zipdownload:
     enabled: true
     conf: []
+  enigma:
+    enabled: true
+    conf:
+      - key: enigma_pgp_homedir
+        val: "'{{ roundcube_enigma_pgp_homedir }}'"
+      - key: enigma_pgp_cipher_algo
+        val: "'AES256'"
+      - key: enigma_pgp_digest_algo
+        val: "'SHA512'"
 
 roundcube_plugins_all: "{{ roundcube_plugins_conf|dict2items|
                            map(attribute='key')|list }}"
@@ -72,7 +83,12 @@ roundcube_plugins_enabled: "{{ roundcube_plugins_conf|dict2items|
                                selectattr('value.enabled')|
                                map(attribute='key')|list }}"
 roundcube_plugins: "{{ roundcube_plugins_enabled|join(',') }}"
-#roundcube_plugins: "'archive', 'zipdownload', 'managesieve', 'password', 'automatic_addressbook'"
+
+# Enigma plugin. PGP (RFC 2440) and PGP/MIME (RFC 3156)
+roundcube_enigma_pgp_homedir: /var/db/roundcube/enigma
+roundcube_enigma_owner: www
+roundcube_enigma_group: wheel
+roundcube_enigma_mode: "u=rwX,g=rX-w,o=-rwx"
 
 # Packages - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 roundcube_aspell_packages:
