@@ -1,0 +1,22 @@
+---
+
+- name: "webserver: Apache"
+  block:
+
+    - name: "webserver: Apache: Include role"
+      include_role:
+        name: vbotka.apache
+        tasks_from: vars.yml
+        public: true
+        apply:
+          tags: always
+
+    - name: "webserver: Apache: Set handlers names"
+      set_fact:
+        fm_reload_webserver: reload apache
+
+  when: fm_roundcube_apache|bool
+  tags: always
+
+# EOF
+...

@@ -1,0 +1,26 @@
+---
+
+- name: "conf: Configure /usr/local/etc/php.ini"
+  lineinfile:
+    dest: "/usr/local/etc/php.ini"
+    regexp: "^{{ item.regex }}"
+    line: "{{ item.regex }} = \"{{ item.val }}\""
+    insertafter: "{{ item.after|default(omit) }}"
+    backup: "{{ fm_roundcube_backup_conf }}"
+  loop: "{{ bsd_php_ini_conf }}"
+  notify: "{{ fm_reload_webserver }}"
+  tags: fm_roundcube_conf_php_ini
+
+- name: "conf: Configure /usr/local/www/roundcube/config/config.inc.php"
+  template:
+    src: "config-config.inc.php.j2"
+    dest: "/usr/local/www/roundcube/config/config.inc.php"
+    owner: "{{ roundcube_data_owner }}"
+    group: "{{ roundcube_data_group }}"
+    mode: "{{ roundcube_data_mode }}"
+    backup: "{{ apache_backup_conf }}"
+  notify: "{{ fm_reload_webserver }}"
+  tags: fm_roundcube_conf_config_inc_php
+
+# EOF
+...

@@ -8,12 +8,20 @@ Please feel free to [share your feedback and report issues](https://github.com/v
 
 ## Requirements
 
-Required:
+Only Apache and MySQL is supported by this role. Other servers (Lighttpd, Nginx, PostgreSQL, SQLite) are WIP.
+
+
+## Dependencies
+
 - [vbotka.freebsd_mailserver](https://galaxy.ansible.com/vbotka/freebsd_mailserver/)
 - [vbotka.freebsd_mysql](https://galaxy.ansible.com/vbotka/freebsd_mysql/)
 - [vbotka.apache](https://galaxy.ansible.com/vbotka/apache/)
 
-Recommended:
+The dependencies are not listed in the meta file. Install the roles manually.
+
+
+## Recommended
+
 - [vbotka.freebsd_mailserver_spamassassin](https://galaxy.ansible.com/vbotka/freebsd_mailserver_spamassassin/)
 - [vbotka.freebsd-mailserver_sieve](https://galaxy.ansible.com/vbotka/freebsd_mailserver_sieve/)
 
@@ -33,6 +41,7 @@ This password has been used by [vbotka.freebsd_mysql](https://galaxy.ansible.com
 GRANT ALL PRIVILEGES ON roundcube.* TO roundcube@localhost IDENTIFIED BY 'MYSQL-PASSWORD';
 ```
 
+
 ## Defaults
 
 ```
@@ -45,7 +54,25 @@ roundcube_debug_level: "5"
 roundcube_smtp_server: "localhost"
 roundcube_support_url: "www.example.com/support/"
 roundcube_product_name: "Roundcube Webmail"
-roundcube_plugins: "'archive', 'zipdownload', 'managesieve', 'password'"
+roundcube_plugins_conf:
+  archive:
+    enabled: true
+  managesieve:
+    enabled: true
+    conf:
+      - {key: managesieve_default, val: "'/usr/local/virtual/home/default.sieve'"}
+  password:
+    enabled: true
+    conf:
+      - key: password_minimum_length
+        val: 8
+      - key: password_db_dsn
+        val: "'mysql://postfix:postfix_sql_password@localhost/postfix'"
+      - key: password_query
+        val: "'UPDATE mailbox SET password=%c, modified=now() WHERE username=%u'"
+  zipdownload:
+    enabled: true
+    conf: []
 ```
 
 
@@ -92,7 +119,19 @@ ansible_python_interpreter=/usr/local/bin/python3.7
 ansible_perl_interpreter=/usr/local/bin/perl
 ```
 
-5) Install and configure Roundcube webmail
+5a) Optionally create plugins default configuration files from *config.inc.php.dist*. Disable webserver to prevent starting the webserver with the default configuration.
+
+```
+shell> ansible-playbook freebsd-mailserver-roundcube.yml -t fm_roundcube_plugins_conf_create
+```
+
+5b) Optionally run playbook in check and diff mode. The command will fail if the plugins' configuration files are missing.
+
+```
+shell> ansible-playbook freebsd-mailserver-roundcube.yml --check --diff
+```
+
+5c) Install and configure Roundcube webmail. Run the command twice to make sure it is idempotent.
 
 ```
 shell> ansible-playbook freebsd-mailserver-roundcube.yml
@@ -101,7 +140,7 @@ shell> ansible-playbook freebsd-mailserver-roundcube.yml
 6) Populate Roundcube database
 
 ```
-shell> ansible-playbook -e fm_roundcube_initial_sql=True freebsd-mailserver-roundcube.yml -t fm_roundcube_initial_sql
+shell> ansible-playbook freebsd-mailserver-roundcube.yml -t fm_roundcube_initial_sql -e "fm_roundcube_initial_sql=True"
 ```
 
 7) Consider to test the webmail
@@ -112,6 +151,7 @@ shell> ansible-playbook -e fm_roundcube_initial_sql=True freebsd-mailserver-roun
 
 ## References
 
+- [Roundcube webmail](https://roundcube.net/)
 - [FreeBSD Postfix – Page 13 – Roundcube Install](http://www.purplehat.org/?page_id=20)
 - [Guide On How To Install Roundcube On FreeBSD](http://www.xfiles.dk/guide-on-how-to-install-roundcube-on-freebsd/)
 - [Roundcube Community Forum](http://www.roundcubeforum.net/)

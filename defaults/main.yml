@@ -1,7 +1,9 @@
 ---
 # defaults for freebsd-mailserver-roundcube
 
+fm_roundcube_install: true
 fm_roundcube_debug: false
+fm_roundcube_debug_classified: false
 fm_roundcube_backup_conf: false
 fm_roundcube_initial_sql: false
 
@@ -11,31 +13,68 @@ freebsd_install_method: packages
 freebsd_install_retries: 10
 freebsd_install_delay: 5
 
-# MySQL
+# WebServer - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+fm_roundcube_apache: true
+
+# MySQL - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Change MYSQL-PASSWORD for roundcube
 bsd_mysql_version: 57
 roundcube_mysql_password: MYSQL-PASSWORD
 roundcube_mysql_server_conf: /usr/local/etc/mysql/my.cnf
 
-# PHP
+# PHP - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 bsd_php_version: 72
 bsd_php_ini_conf:
   - {regex: "date.timezone", val: "{{ roundcube_zoneinfo }}", after: "date.timezone"}
 
-# Roundcube
+# Roundcube - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 roundcube_zoneinfo: UTC
 roundcube_debug_level: 5
 roundcube_smtp_server: localhost
 roundcube_support_url: www.example.com/support/
 roundcube_product_name: example.com Roundcube Webmail
-#roundcube_plugins: "'archive', 'zipdownload', 'managesieve', 'password', 'automatic_addressbook'"
-roundcube_plugins: "'archive', 'zipdownload', 'managesieve', 'password'"
 
 roundcube_data_owner: www
 roundcube_data_group: wheel
 roundcube_data_mode: "u=rwX,g=rX-w,o=-rwx"
 
-# Packages
+# Plugins - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+roundcube_plugins_dir: /usr/local/www/roundcube/plugins
+
+# roundcube_plugins_conf ... Configuratino of plugins
+# key ...................... Plugin name
+#   enabled ................ Plugin enabled
+#   conf ................... Plugin configuration. Empty list is required to create
+#                            default configuration
+roundcube_plugins_conf:
+  archive:
+    enabled: true
+  managesieve:
+    enabled: true
+    conf:
+      - {key: managesieve_default, val: "'/usr/local/virtual/home/default.sieve'"}
+  password:
+    enabled: true
+    conf:
+      - key: password_minimum_length
+        val: 8
+      - key: password_db_dsn
+        val: "'mysql://postfix:postfix_sql_password@localhost/postfix'"
+      - key: password_query
+        val: "'UPDATE mailbox SET password=%c, modified=now() WHERE username=%u'"
+  zipdownload:
+    enabled: true
+    conf: []
+
+roundcube_plugins_all: "{{ roundcube_plugins_conf|dict2items|
+                           map(attribute='key')|list }}"
+roundcube_plugins_enabled: "{{ roundcube_plugins_conf|dict2items|
+                               selectattr('value.enabled')|
+                               map(attribute='key')|list }}"
+roundcube_plugins: "{{ roundcube_plugins_enabled|join(',') }}"
+#roundcube_plugins: "'archive', 'zipdownload', 'managesieve', 'password', 'automatic_addressbook'"
+
+# Packages - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 roundcube_aspell_packages:
   - textproc/aspell
   - textproc/en-aspell

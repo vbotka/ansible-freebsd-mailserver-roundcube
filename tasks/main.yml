@@ -1,7 +1,15 @@
 ---
 # tasks for freebsd-mailserver-roundcube
 
+- import_tasks: webserver.yml
+  tags: [fm_roundcube_webserver, always]
+
+- import_tasks: debug.yml
+  when: fm_roundcube_debug|bool
+  tags: [fm_roundcube_debug, always]
+
 - import_tasks: packages.yml
+  when: fm_roundcube_install|bool
   tags: fm_roundcube_packages
 
 - import_tasks: permissions.yml
@@ -10,11 +18,11 @@
 - import_tasks: copy.yml
   tags: fm_roundcube_copy
 
-- import_tasks: configuration.yml
-  tags: fm_roundcube_configuration
+- import_tasks: conf.yml
+  tags: fm_roundcube_conf
 
-- import_tasks: templates.yml
-  tags: fm_roundcube_templates
+- import_tasks: plugins.yml
+  tags: fm_roundcube_plugins
 
 - import_tasks: mysql_initial_sql.yml
   tags: fm_roundcube_initial_sql

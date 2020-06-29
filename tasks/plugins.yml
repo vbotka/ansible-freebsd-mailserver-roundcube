@@ -1,0 +1,35 @@
+---
+
+- name: "plugins: Create configuration files when does not exist"
+  copy:
+    remote_src: true
+    force: false
+    src: "{{ roundcube_plugins_dir }}/{{ item }}/config.inc.php.dist"
+    dest: "{{ roundcube_plugins_dir }}/{{ item }}/config.inc.php"
+    owner: "{{ roundcube_data_owner }}"
+    group: "{{ roundcube_data_group }}"
+    mode: "{{ roundcube_data_mode }}"
+    backup: "{{ apache_backup_conf }}"
+  loop: "{{ roundcube_plugins_all }}"
+  when: roundcube_plugins_conf[item].conf is defined
+  notify: "{{ fm_reload_webserver }}"
+  tags: fm_roundcube_plugins_conf_create
+
+- name: "plugins: Configure"
+  lineinfile:
+    path: "{{ roundcube_plugins_dir }}/{{ item.0.key }}/config.inc.php"
+    owner: "{{ roundcube_data_owner }}"
+    group: "{{ roundcube_data_group }}"
+    mode: "{{ roundcube_data_mode }}"
+    backup: "{{ apache_backup_conf }}"
+    regex: "^\\s*\\$config\\[\\s*'{{ item.1.key }}'\\s*\\]\\s*=(.*)$"
+    line: "$config['{{ item.1.key }}'] = {{ item.1.val }};"
+  loop: "{{ query('subelements',
+                  roundcube_plugins_conf|dict2items,
+                  'value.conf',
+                  {'skip_missing': True}) }}"
+  notify: "{{ fm_reload_webserver }}"
+  tags: fm_roundcube_plugins_conf
+
+# EOF
+...

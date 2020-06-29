@@ -16,8 +16,8 @@ galaxy_info:
   galaxy_tags:
     - freebsd
     - roundcube
-dependencies:
-  - vbotka.freebsd_mailserver
-  - vbotka.freebsd_mysql
-  - vbotka.apache
+dependencies: []
+#  - vbotka.freebsd_mailserver
+#  - vbotka.freebsd_mysql
+#  - vbotka.apache
 ...
