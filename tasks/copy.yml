@@ -2,8 +2,8 @@
 
 - name: "copy: Create /usr/local/etc/php.ini"
   copy:
-    src: "/usr/local/etc/php.ini-production"
-    dest: "/usr/local/etc/php.ini"
+    src: /usr/local/etc/php.ini-production
+    dest: /usr/local/etc/php.ini
     force: false
     remote_src: true
 

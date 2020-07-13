@@ -136,7 +136,6 @@ roundcube_packages:
   - "php{{ bsd_php_version }}-xsl"
   - "php{{ bsd_php_version }}-zip"
   - "php{{ bsd_php_version }}-zlib"
-
   - "php{{ bsd_php_version }}-pecl-mcrypt"
 # - "php{{ bsd_php_version }}-mcrypt"
 # - "php{{ bsd_php_version }}-mysql"

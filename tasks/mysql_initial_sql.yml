@@ -8,8 +8,7 @@
   args:
     chdir: /usr/local/www/roundcube/SQL
   register: initial_sql
-  when:
-    - fm_roundcube_initial_sql|bool
+  when: fm_roundcube_initial_sql|bool
 
 - name: "mysql_initial_sql: debug"
   debug:

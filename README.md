@@ -4,7 +4,8 @@
 
 [Ansible role.](https://galaxy.ansible.com/vbotka/freebsd_mailserver_roundcube/) FreeBSD. Install and configure [Roundcube](https://roundcube.net/) webmail.
 
-Please feel free to [share your feedback and report issues](https://github.com/vbotka/ansible-freebsd-mailserver-roundcube/issues).
+Feel free to [share your feedback and report issues](https://github.com/vbotka/ansible-freebsd-mailserver-roundcube/issues). Contributions are welcome.
+
 
 ## Requirements
 
@@ -51,12 +52,12 @@ fm_roundcube_debug: false
 fm_roundcube_debug_classified: false
 fm_roundcube_backup_conf: false
 
-roundcube_zoneinfo: "UTC"
-roundcube_mysql_password: "MYSQL-PASSWORD"
-roundcube_debug_level: "5"
-roundcube_smtp_server: "localhost"
-roundcube_support_url: "www.example.com/support/"
-roundcube_product_name: "Roundcube Webmail"
+roundcube_zoneinfo: UTC
+roundcube_mysql_password: MYSQL-PASSWORD
+roundcube_debug_level: 5
+roundcube_smtp_server: localhost
+roundcube_support_url: www.example.com/support/
+roundcube_product_name: Roundcube Webmail
 
 roundcube_plugins_conf:
   archive:
@@ -197,6 +198,7 @@ shell> tree /var/db/roundcube/enigma/
 ## References
 
 - [Roundcube webmail](https://roundcube.net/)
+- [Roundcube - ArchLinux Wiki](https://wiki.archlinux.org/index.php/Roundcube)
 - [FreeBSD Postfix – Page 13 – Roundcube Install](http://www.purplehat.org/?page_id=20)
 - [Guide On How To Install Roundcube On FreeBSD](http://www.xfiles.dk/guide-on-how-to-install-roundcube-on-freebsd/)
 - [Roundcube Community Forum](http://www.roundcubeforum.net/)
