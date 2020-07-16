@@ -78,10 +78,10 @@ roundcube_plugins_conf:
         val: "'SHA512'"
 
 roundcube_plugins_all: "{{ roundcube_plugins_conf|dict2items|
-                           map(attribute='key')|list }}"
+                           map(attribute='key')|list|sort }}"
 roundcube_plugins_enabled: "{{ roundcube_plugins_conf|dict2items|
                                selectattr('value.enabled')|
-                               map(attribute='key')|list }}"
+                               map(attribute='key')|list|sort }}"
 roundcube_plugins: "{{ roundcube_plugins_enabled|join(',') }}"
 
 # Enigma plugin. PGP (RFC 2440) and PGP/MIME (RFC 3156)
