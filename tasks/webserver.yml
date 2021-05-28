@@ -12,7 +12,7 @@
           tags: always
 
     - name: "webserver: Apache: Set handlers names"
-      set_fact:
+      ansible.builtin.set_fact:
         fm_reload_webserver: reload apache
 
   when: fm_roundcube_apache|bool

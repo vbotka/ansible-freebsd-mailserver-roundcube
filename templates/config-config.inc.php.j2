@@ -11,7 +11,11 @@ $config['smtp_pass'] = '';
 $config['support_url'] = '{{ roundcube_support_url }}';
 $config['product_name'] = '{{ roundcube_product_name }}';
 $config['des_key'] = 'rcmail-!24ByteDESkey*Str';
-$config['plugins'] = {{ 'array' }}( {{ roundcube_plugins }} );
+$config['plugins'] = [
+{% for plugin in roundcube_plugins_enabled %}
+    '{{ plugin }}',
+{% endfor %}
+];
 $config['skin'] = 'larry';
 $config['spellcheck_engine'] = 'pspell';
 $config['preview_pane'] = true;

@@ -24,7 +24,8 @@
 - import_tasks: plugins.yml
   tags: fm_roundcube_plugins
 
-- import_tasks: mysql_initial_sql.yml
+- import_tasks: initial_sql.yml
+  when: fm_roundcube_initial_sql|bool
   tags: fm_roundcube_initial_sql
 
 # EOF

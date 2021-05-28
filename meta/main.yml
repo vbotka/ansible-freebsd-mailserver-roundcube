@@ -17,4 +17,6 @@ galaxy_info:
     - freebsd
     - roundcube
 dependencies: []
+collections:
+  - community.general
 ...

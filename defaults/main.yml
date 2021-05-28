@@ -5,7 +5,9 @@ fm_roundcube_install: true
 fm_roundcube_debug: false
 fm_roundcube_debug_classified: false
 fm_roundcube_backup_conf: false
+
 fm_roundcube_initial_sql: false
+fm_roundcube_initial_mysql: true
 
 freebsd_install_method: packages
 #freebsd_install_method: ports
@@ -18,12 +20,12 @@ fm_roundcube_apache: true
 
 # MySQL - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Change MYSQL-PASSWORD for roundcube
-bsd_mysql_version: 57
+bsd_mysql_version: "80"
 roundcube_mysql_password: MYSQL-PASSWORD
 roundcube_mysql_server_conf: /usr/local/etc/mysql/my.cnf
 
 # PHP - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-bsd_php_version: 72
+bsd_php_version: "74"
 bsd_php_ini_conf:
   - {regex: "date.timezone", val: "{{ roundcube_zoneinfo }}", after: "date.timezone"}
 
@@ -77,12 +79,10 @@ roundcube_plugins_conf:
       - key: enigma_pgp_digest_algo
         val: "'SHA512'"
 
-roundcube_plugins_all: "{{ roundcube_plugins_conf|dict2items|
-                           map(attribute='key')|list|sort }}"
+roundcube_plugins_all: "{{ roundcube_plugins_conf.keys()|list|sort }}"
 roundcube_plugins_enabled: "{{ roundcube_plugins_conf|dict2items|
                                selectattr('value.enabled')|
                                map(attribute='key')|list|sort }}"
-roundcube_plugins: "{{ roundcube_plugins_enabled|join(',') }}"
 
 # Enigma plugin. PGP (RFC 2440) and PGP/MIME (RFC 3156)
 roundcube_enigma_pgp_homedir: /var/db/roundcube/enigma
@@ -111,7 +111,7 @@ roundcube_packages:
   - "php{{ bsd_php_version }}-filter"
   - "php{{ bsd_php_version }}-ftp"
   - "php{{ bsd_php_version }}-gd"
-  - "php{{ bsd_php_version }}-hash"
+# - "php{{ bsd_php_version }}-hash"  # The hash module is now part of the PHP core
   - "php{{ bsd_php_version }}-iconv"
   - "php{{ bsd_php_version }}-json"
   - "php{{ bsd_php_version }}-ldap"
@@ -129,7 +129,7 @@ roundcube_packages:
   - "php{{ bsd_php_version }}-simplexml"
   - "php{{ bsd_php_version }}-sqlite3"
   - "php{{ bsd_php_version }}-tokenizer"
-  - "php{{ bsd_php_version }}-wddx"
+# - "php{{ bsd_php_version }}-wddx"  # Deprecated
   - "php{{ bsd_php_version }}-xml"
   - "php{{ bsd_php_version }}-xmlreader"
   - "php{{ bsd_php_version }}-xmlwriter"
