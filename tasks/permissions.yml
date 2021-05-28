@@ -1,16 +1,16 @@
 ---
 
 - name: "permissions: chown -R {{ roundcube_data_owner }}:{{ roundcube_data_group }} /usr/local/www/roundcube"
-  command: "chown -R {{ roundcube_data_owner }}:{{ roundcube_data_group }} roundcube"
-  args:
+  command:
+    cmd: "chown -R {{ roundcube_data_owner }}:{{ roundcube_data_group }} roundcube"
     chdir: /usr/local/www
     warn: false
   changed_when: false
   tags: fm_roundcube_permissions_chown
 
 - name: "permissions: chmod -R {{ roundcube_data_mode }} /usr/local/www/roundcube"
-  command: "chmod -R {{ roundcube_data_mode }} /usr/local/www/roundcube"
-  args:
+  command:
+    cmd: "chmod -R {{ roundcube_data_mode }} /usr/local/www/roundcube"
     chdir: /usr/local/www
     warn: false
   changed_when: false

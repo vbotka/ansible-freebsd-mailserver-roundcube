@@ -1,7 +1,7 @@
 ---
 
 - name: "plugins: Create configuration files when does not exist"
-  copy:
+  ansible.builtin.copy:
     remote_src: true
     force: false
     src: "{{ roundcube_plugins_dir }}/{{ item }}/config.inc.php.dist"
@@ -16,7 +16,7 @@
   tags: fm_roundcube_plugins_conf_create
 
 - name: "plugins: Configure"
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: "{{ roundcube_plugins_dir }}/{{ item.0.key }}/config.inc.php"
     owner: "{{ roundcube_data_owner }}"
     group: "{{ roundcube_data_group }}"

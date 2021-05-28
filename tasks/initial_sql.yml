@@ -1,0 +1,25 @@
+---
+# freebsd-mailserver-roundcube
+# Populate the Roundcube database
+# By default fm_roundcube_initial.sql=False
+
+- name: "initial_sql:MySQL: Populate Roundcube database."
+  block:
+    - name: "initial_sql:MySQL: Populate Roundcube database."
+      shell:
+        cmd: >
+          mysql -u roundcube -p{{ roundcube_mysql_password }} roundcube < mysql.initial.sql
+        chdir: /usr/local/www/roundcube/SQL
+      register: initial_sql
+    - name: "initial_sql:MySQL: Debug initial_sql.stdout_lines"
+      debug:
+        var: initial_sql.stdout_lines
+      when: fm_roundcube_debug|bool
+  when: fm_roundcube_initial_mysql|bool
+
+# TODO
+#
+# mysql: [Warning] Using a password on the command line interface can be insecure.
+
+# EOF
+...

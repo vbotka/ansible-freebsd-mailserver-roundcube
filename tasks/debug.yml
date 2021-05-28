@@ -1,8 +1,8 @@
 ---
 
-- name: Debug
+- name: "Debug"
   vars:
-    msg: |
+    msg: |-
       ansible_architecture [{{ ansible_architecture }}]
       ansible_os_family [{{ ansible_os_family }}]
       ansible_distribution [{{ ansible_distribution }}]
@@ -15,6 +15,7 @@
       fm_roundcube_apache [{{ fm_roundcube_apache }}]
       fm_reload_webserver [{{ fm_reload_webserver }}]
       fm_roundcube_initial_sql [{{ fm_roundcube_initial_sql }}]
+      fm_roundcube_initial_mysql [{{ fm_roundcube_initial_mysql }}]
       roundcube_mysql_server_conf [{{ roundcube_mysql_server_conf }}]
 
       roundcube_zoneinfo [{{ roundcube_zoneinfo }}]
@@ -31,7 +32,6 @@
       {{ roundcube_plugins_all|to_yaml }}
       roundcube_plugins_enabled
       {{ roundcube_plugins_enabled|to_yaml }}
-      roundcube_plugins [{{ roundcube_plugins }}]
       roundcube_plugins_conf
       {{ roundcube_plugins_conf|to_nice_yaml }}
       roundcube_enigma_pgp_homedir [{{ roundcube_enigma_pgp_homedir }}]
@@ -52,17 +52,17 @@
       {{ roundcube_packages|to_yaml }}
       roundcube_aspell_packages
       {{ roundcube_aspell_packages|to_yaml }}
-  debug:
-    msg: "{{ msg.split('\n')[:-1] }}"
+  ansible.builtin.debug:
+    msg: "{{ msg.split('\n') }}"
 
 - name: "Debug classified"
   vars:
-    msg: |
+    msg: |-
       roundcube_mysql_password [{{ roundcube_mysql_password }}]
       postfix_smtp_sasl_passwords
       {{ postfix_smtp_sasl_passwords|to_yaml }}
-  debug:
-    msg: "{{ msg.split('\n')[:-1] }}"
+  ansible.builtin.debug:
+    msg: "{{ msg.split('\n') }}"
   when: fm_roundcube_debug_classified|bool
 
 # EOF
