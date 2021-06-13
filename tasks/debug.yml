@@ -13,6 +13,7 @@
 
       fm_roundcube_backup_conf [{{ fm_roundcube_backup_conf }}]
       fm_roundcube_apache [{{ fm_roundcube_apache }}]
+      fm_roundcube_apache_version [{{ fm_roundcube_apache_version }}]
       fm_reload_webserver [{{ fm_reload_webserver }}]
       fm_roundcube_initial_sql [{{ fm_roundcube_initial_sql }}]
       fm_roundcube_initial_mysql [{{ fm_roundcube_initial_mysql }}]

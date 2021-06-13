@@ -1,30 +1,38 @@
 ---
-# tasks for freebsd-mailserver-roundcube
+# tasks for freebsd_mailserver_roundcube
 
-- import_tasks: webserver.yml
+- name: Import webserver.yml
+  ansible.builtin.import_tasks: webserver.yml
   tags: [fm_roundcube_webserver, always]
 
-- import_tasks: debug.yml
+- name: Import debug.yml
+  ansible.builtin.import_tasks: debug.yml
   when: fm_roundcube_debug|bool
   tags: [fm_roundcube_debug, always]
 
-- import_tasks: packages.yml
+- name: Import packages.yml
+  ansible.builtin.import_tasks: packages.yml
   when: fm_roundcube_install|bool
   tags: fm_roundcube_packages
 
-- import_tasks: permissions.yml
+- name: Import permissions.yml
+  ansible.builtin.import_tasks: permissions.yml
   tags: fm_roundcube_permissions
 
-- import_tasks: copy.yml
+- name: Import copy.yml
+  ansible.builtin.import_tasks: copy.yml
   tags: fm_roundcube_copy
 
-- import_tasks: conf.yml
+- name: Import conf.yml
+  ansible.builtin.import_tasks: conf.yml
   tags: fm_roundcube_conf
 
-- import_tasks: plugins.yml
+- name: Import plugins.yml
+  ansible.builtin.import_tasks: plugins.yml
   tags: fm_roundcube_plugins
 
-- import_tasks: initial_sql.yml
+- name: Import initial_sql.yml
+  ansible.builtin.import_tasks: initial_sql.yml
   when: fm_roundcube_initial_sql|bool
   tags: fm_roundcube_initial_sql
 

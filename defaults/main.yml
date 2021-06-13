@@ -1,5 +1,5 @@
 ---
-# defaults for freebsd-mailserver-roundcube
+# defaults for freebsd_mailserver_roundcube
 
 fm_roundcube_install: true
 fm_roundcube_debug: false
@@ -10,13 +10,14 @@ fm_roundcube_initial_sql: false
 fm_roundcube_initial_mysql: true
 
 freebsd_install_method: packages
-#freebsd_install_method: ports
-#freebsd_use_packages: true
+# freebsd_install_method: ports
+# freebsd_use_packages: true
 freebsd_install_retries: 10
 freebsd_install_delay: 5
 
 # WebServer - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 fm_roundcube_apache: true
+fm_roundcube_apache_version: "24"
 
 # MySQL - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Change MYSQL-PASSWORD for roundcube

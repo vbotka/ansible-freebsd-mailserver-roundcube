@@ -1,45 +1,43 @@
 ---
 
-- name: "packages: Install aspell packages"
-  community.general.pkgng:
-    name: "{{ item }}"
-  loop: "{{ roundcube_aspell_packages }}"
-  register: result
-  retries: "{{ freebsd_install_retries }}"
-  until: result is succeeded
-  delay: "{{ freebsd_install_delay }}"
+- name: "packages: Install packages"
+  block:
+    - name: "packages: Install aspell packages"
+      community.general.pkgng:
+        name: "{{ roundcube_aspell_packages }}"
+      register: result
+      retries: "{{ freebsd_install_retries }}"
+      until: result is succeeded
+      delay: "{{ freebsd_install_delay }}"
+    - name: "packages: Install roundcube packages"
+      community.general.pkgng:
+        name: "{{ roundcube_packages }}"
+      register: result
+      retries: "{{ freebsd_install_retries }}"
+      until: result is succeeded
+      delay: "{{ freebsd_install_delay }}"
   when: freebsd_install_method|lower == "packages"
 
-- name: "packages: Install roundcube packages"
-  community.general.pkgng:
-    name: "{{ item }}"
-  loop: "{{ roundcube_packages }}"
-  register: result
-  retries: "{{ freebsd_install_retries }}"
-  until: result is succeeded
-  delay: "{{ freebsd_install_delay }}"
-  when: freebsd_install_method|lower == "packages"
-
-- name: "packages: Install aspell ports"
-  community.general.portinstall:
-    name: "{{ item }}"
-    use_packages: "{{ freebsd_use_packages }}"
-  loop: "{{ roundcube_aspell_packages }}"
-  register: result
-  retries: "{{ freebsd_install_retries }}"
-  until: result is succeeded
-  delay: "{{ freebsd_install_delay }}"
-  when: freebsd_install_method|lower == "ports"
-
-- name: "packages: Install roundcube ports"
-  community.general.portinstall:
-    name: "{{ item }}"
-    use_packages: "{{ freebsd_use_packages }}"
-  loop: "{{ roundcube_packages }}"
-  register: result
-  retries: "{{ freebsd_install_retries }}"
-  until: result is succeeded
-  delay: "{{ freebsd_install_delay }}"
+- name: "packages: Install ports"
+  block:
+    - name: "packages: Install aspell ports"
+      community.general.portinstall:
+        name: "{{ item }}"
+        use_packages: "{{ freebsd_use_packages }}"
+      loop: "{{ roundcube_aspell_packages }}"
+      register: result
+      retries: "{{ freebsd_install_retries }}"
+      until: result is succeeded
+      delay: "{{ freebsd_install_delay }}"
+    - name: "packages: Install roundcube ports"
+      community.general.portinstall:
+        name: "{{ item }}"
+        use_packages: "{{ freebsd_use_packages }}"
+      loop: "{{ roundcube_packages }}"
+      register: result
+      retries: "{{ freebsd_install_retries }}"
+      until: result is succeeded
+      delay: "{{ freebsd_install_delay }}"
   when: freebsd_install_method|lower == "ports"
 
 # EOF

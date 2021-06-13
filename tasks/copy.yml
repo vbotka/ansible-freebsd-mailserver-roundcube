@@ -4,6 +4,7 @@
   ansible.builtin.copy:
     src: /usr/local/etc/php.ini-production
     dest: /usr/local/etc/php.ini
+    mode: preserve
     force: false
     remote_src: true
 
