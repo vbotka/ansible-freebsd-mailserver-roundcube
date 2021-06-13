@@ -1,7 +1,7 @@
 ---
 
 - name: "permissions: chown -R {{ roundcube_data_owner }}:{{ roundcube_data_group }} /usr/local/www/roundcube"
-  command:
+  ansible.builtin.command:
     cmd: "chown -R {{ roundcube_data_owner }}:{{ roundcube_data_group }} roundcube"
     chdir: /usr/local/www
     warn: false
@@ -9,7 +9,7 @@
   tags: fm_roundcube_permissions_chown
 
 - name: "permissions: chmod -R {{ roundcube_data_mode }} /usr/local/www/roundcube"
-  command:
+  ansible.builtin.command:
     cmd: "chmod -R {{ roundcube_data_mode }} /usr/local/www/roundcube"
     chdir: /usr/local/www
     warn: false
@@ -17,7 +17,7 @@
   tags: fm_roundcube_permissions_chmod
 
 - name: "permissions: Enigma plugin: Create {{ roundcube_enigma_pgp_homedir }}"
-  file:
+  ansible.builtin.file:
     state: directory
     path: "{{ roundcube_enigma_pgp_homedir }}"
     owner: "{{ roundcube_enigma_owner }}"

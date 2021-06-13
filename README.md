@@ -9,25 +9,27 @@ Feel free to [share your feedback and report issues](https://github.com/vbotka/a
 [Contributions are welcome](https://github.com/firstcontributions/first-contributions).
 
 
-## Requirements
+## Requirements and dependencies
 
-- PHP 7.4
+### Packages
+
+- PHP
 - Only Apache and MySQL is supported by this role.
 - Other servers (Lighttpd, Nginx, PostgreSQL, SQLite) are WIP.
+
+See the default versions of the packages in defaults/main.yml
 
 ### Collections
 
 - community.general
 
-
-## Dependencies
+### Roles
 
 - [vbotka.freebsd_mailserver](https://galaxy.ansible.com/vbotka/freebsd_mailserver/)
 - [vbotka.freebsd_mysql](https://galaxy.ansible.com/vbotka/freebsd_mysql/)
 - [vbotka.apache](https://galaxy.ansible.com/vbotka/apache/)
 
 The dependencies are not listed in the meta file. Install the roles manually.
-
 
 ### Recommended
 
@@ -37,7 +39,7 @@ The dependencies are not listed in the meta file. Install the roles manually.
 
 ## Variables
 
-Review the defaults and examples in vars.
+See the defaults and examples in vars.
 
 
 1) Configure MySQL password for user *roundcube*
@@ -45,11 +47,12 @@ Review the defaults and examples in vars.
 ```
 roundcube_mysql_password: "MYSQL-PASSWORD"
 ```
+
 This password has been used by [vbotka.freebsd_mysql](https://galaxy.ansible.com/vbotka/freebsd_mysql/) to grant privileges to user *roundcube@localhost*
+
 ```
 GRANT ALL PRIVILEGES ON roundcube.* TO roundcube@localhost IDENTIFIED BY 'MYSQL-PASSWORD';
 ```
-
 
 ## Defaults (selected)
 
@@ -79,7 +82,7 @@ By default the database is not populated *fm_roundcube_initial_sql=False*. Let's
 shell> ansible mailserver -e 'ansible_shell_type=csh ansible_shell_executable=/bin/csh' -a 'sudo pw usermod freebsd -s /bin/sh'
 ```
 
-2) Install role and collections
+2) Install the role and collections
 
 ```
 shell> ansible-galaxy role install vbotka.freebsd_mysql
@@ -116,9 +119,10 @@ ansible_python_interpreter=/usr/local/bin/python3.7
 ansible_perl_interpreter=/usr/local/bin/perl
 ```
 
-5a) Install packages or ports
+5a) Check syntax and install packages or ports
 
 ```
+shell> ansible-playbook freebsd-mailserver-roundcube.yml --syntax-check
 shell> ansible-playbook freebsd-mailserver-roundcube.yml -t fm_roundcube_packages -e fm_roundcube_install=true
 ```
 
