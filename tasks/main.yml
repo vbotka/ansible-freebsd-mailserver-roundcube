@@ -8,7 +8,7 @@
 - name: Import debug.yml
   ansible.builtin.import_tasks: debug.yml
   when: fm_roundcube_debug|bool
-  tags: [fm_roundcube_debug, always]
+  tags: fm_roundcube_debug
 
 - name: Import packages.yml
   ansible.builtin.import_tasks: packages.yml
