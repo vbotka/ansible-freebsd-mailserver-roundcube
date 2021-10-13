@@ -1,6 +1,6 @@
 ---
 
-- name: "Debug"
+- name: Debug
   vars:
     msg: |-
       ansible_architecture [{{ ansible_architecture }}]
@@ -54,16 +54,16 @@
       roundcube_aspell_packages
       {{ roundcube_aspell_packages|to_yaml }}
   ansible.builtin.debug:
-    msg: "{{ msg.split('\n') }}"
+    msg: "{{ '{}'.format(msg) }}"
 
-- name: "Debug classified"
+- name: Debug classified
   vars:
     msg: |-
       roundcube_mysql_password [{{ roundcube_mysql_password }}]
       postfix_smtp_sasl_passwords
       {{ postfix_smtp_sasl_passwords|to_yaml }}
   ansible.builtin.debug:
-    msg: "{{ msg.split('\n') }}"
+    msg: "{{ '{}'.format(msg) }}"
   when: fm_roundcube_debug_classified|bool
 
 # EOF
