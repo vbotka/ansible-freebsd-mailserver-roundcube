@@ -3,24 +3,24 @@
 # Populate the Roundcube database
 # By default fm_roundcube_initial.sql=False
 
-- name: "initial_sql:MySQL: Populate Roundcube database."
+- name: Populate Roundcube database.
+  when: fm_roundcube_initial_mysql | bool
   block:
-    - name: "initial_sql:MySQL: Populate Roundcube database."
+    - name: "Initial_sql:MySQL: Populate Roundcube database." # noqa: no-changed-when
       ansible.builtin.shell:
         cmd: >
           mysql -u roundcube -p{{ roundcube_mysql_password }} roundcube < mysql.initial.sql
         chdir: /usr/local/www/roundcube/SQL
       register: initial_sql
       no_log: true
-    - name: "initial_sql:MySQL: Debug initial_sql.stdout_lines"
+
+    - name: "Initial_sql:MySQL: Debug initial_sql.stdout_lines"
       ansible.builtin.debug:
         var: initial_sql.stdout_lines
-      when: fm_roundcube_debug_classified|bool
-  when: fm_roundcube_initial_mysql|bool
+      when: fm_roundcube_debug_classified | bool
 
 # TODO
 #
 # mysql: [Warning] Using a password on the command line interface can be insecure.
 
 # EOF
-...

@@ -1,19 +1,19 @@
 ---
-
-- name: "webserver: Apache"
+- name: Apache
+  when: fm_roundcube_apache | bool
+  tags: always
   block:
-    - name: "webserver: Apache: Include role"
+
+    - name: "Webserver: Apache: Include role"
       ansible.builtin.include_role:
         name: vbotka.apache
         tasks_from: vars.yml
         public: true
         apply:
           tags: always
-    - name: "webserver: Apache: Set handlers names"
+
+    - name: "Webserver: Apache: Set handlers names"
       ansible.builtin.set_fact:
         fm_reload_webserver: reload apache
-  when: fm_roundcube_apache|bool
-  tags: always
 
 # EOF
-...

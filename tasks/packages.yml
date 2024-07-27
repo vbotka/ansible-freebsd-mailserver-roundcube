@@ -1,26 +1,29 @@
 ---
-
-- name: "packages: Install packages"
+- name: Install packages
+  when: freebsd_install_method | lower == "packages"
   block:
-    - name: "packages: Install aspell packages"
+
+    - name: "Packages: Install aspell packages"
       community.general.pkgng:
         name: "{{ roundcube_aspell_packages }}"
       register: result
       retries: "{{ freebsd_install_retries }}"
       until: result is succeeded
       delay: "{{ freebsd_install_delay }}"
-    - name: "packages: Install roundcube packages"
+
+    - name: "Packages: Install roundcube packages"
       community.general.pkgng:
         name: "{{ roundcube_packages }}"
       register: result
       retries: "{{ freebsd_install_retries }}"
       until: result is succeeded
       delay: "{{ freebsd_install_delay }}"
-  when: freebsd_install_method|lower == "packages"
 
-- name: "packages: Install ports"
+- name: Install ports
+  when: freebsd_install_method | lower == "ports"
   block:
-    - name: "packages: Install aspell ports"
+
+    - name: "Packages: Install aspell ports"
       community.general.portinstall:
         name: "{{ item }}"
         use_packages: "{{ freebsd_use_packages }}"
@@ -29,7 +32,8 @@
       retries: "{{ freebsd_install_retries }}"
       until: result is succeeded
       delay: "{{ freebsd_install_delay }}"
-    - name: "packages: Install roundcube ports"
+
+    - name: "Packages: Install roundcube ports"
       community.general.portinstall:
         name: "{{ item }}"
         use_packages: "{{ freebsd_use_packages }}"
@@ -38,7 +42,5 @@
       retries: "{{ freebsd_install_retries }}"
       until: result is succeeded
       delay: "{{ freebsd_install_delay }}"
-  when: freebsd_install_method|lower == "ports"
 
 # EOF
-...

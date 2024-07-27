@@ -1,8 +1,23 @@
 ---
 # vars samples for freebsd_mailserver_roundcube
 
-# Change MYSQL-PASSWORD for roundcube
-# roundcube_mysql_password: "MYSQL-PASSWORD"
+fm_roundcube_install: false
+fm_roundcube_debug: false
+fm_roundcube_backup_conf: true
+fm_roundcube_initial_sql: false
+fm_roundcube_copy_favicon: true
 
-# EOF
-...
+# config/config.inc.php
+roundcube_mysql_password: MYSQL-PASSWORD
+roundcube_des_key: MY_DES_KEY
+roundcube_imap_host: localhost
+roundcube_smtp_host: localhost
+roundcube_support_url: https://mail.example.org/support/
+roundcube_product_name: NetNG WebMail
+
+# /usr/local/etc/php.ini
+roundcube_zoneinfo: CET
+
+roundcube_aspell_packages:
+  - aspell
+  - en-aspell
