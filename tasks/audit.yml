@@ -1,0 +1,52 @@
+---
+
+- name: Set variables
+  block:
+
+    - name: "Audit: Fetch {{ roundcube_data_dir ~ '/config/config.inc.php' }}"
+      ansible.builtin.fetch:
+        src: "{{ roundcube_data_dir }}/config/config.inc.php"
+        dest: /tmp/ansible/fetched
+
+      # TODO: Smarter parser
+    - name: "Audit: Set my_enable_installer and my_skin"
+      ansible.builtin.set_fact:
+        my_enable_installer: "{{ (lookup('pipe', cmd_enable_installer) | split('=') | last | trim)[:-1] | bool }}"
+        my_skin: "{{ (lookup('pipe', cmd_skin) | split('=') | last | trim)[1:-2] }}"
+      vars:
+        cmd_enable_installer: "grep enable_installer {{ file }}"
+        cmd_skin: "grep skin {{ file }}"
+        file: "/tmp/ansible/fetched/{{ inventory_hostname }}/usr/local/www/roundcube/config/config.inc.php"
+
+    - name: "Audit: Find skins in {{ roundcube_data_dir ~ '/skins' }}"
+      ansible.builtin.find:
+        path: "{{ roundcube_data_dir }}/skins"
+        file_type: directory
+      register: find_skins
+
+    - name: "Audit: Find dirs in document root {{ roundcube_data_dir }}"
+      ansible.builtin.find:
+        path: "{{ roundcube_data_dir }}"
+        file_type: directory
+      register: find_dirs
+
+- name: "Audit: Skin is installed."
+  ansible.builtin.assert:
+    that: my_skin in skins
+    fail_msg: '[ERR] Skin {{ my_skin }} is not installed. Installed skins: {{ skins }}'
+  vars:
+    skins: "{{ find_skins.files | map(attribute='path') | map('basename') }}"
+
+- name: "Audit: Installer is removed from webserver document root."
+  ansible.builtin.assert:
+    that: "'installer' not in root_dirs"
+    fail_msg: '[ERR] Dir installer is in the webserver document root.'
+  vars:
+    root_dirs: "{{ find_dirs.files | map(attribute='path') | map('basename') }}"
+
+- name: "Audit: Installer is not enabled."
+  ansible.builtin.assert:
+    that: not my_enable_installer
+    fail_msg: '[ERR] Installer is enabled in config.inc.php'
+
+# EOF

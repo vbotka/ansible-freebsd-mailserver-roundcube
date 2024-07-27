@@ -9,26 +9,19 @@ sudo: false
 addons:
   apt:
     packages: [python-pip]
-
-
 install:
   - pip install ansible
-  - ansible-galaxy install -p tests/roles/ vbotka.freebsd_mailserver
-  - ansible-galaxy install -p tests/roles/ vbotka.freebsd_mysql
-  - ansible-galaxy install -p tests/roles/ vbotka.apache
+  - ansible-galaxy role install -p tests/roles/ vbotka.freebsd_mailserver
+  - ansible-galaxy role install -p tests/roles/ vbotka.freebsd_mysql
+  - ansible-galaxy role install -p tests/roles/ vbotka.apache
   - ansible --version
   - printf '[defaults]\nroles_path=../' >ansible.cfg
-
 
 script:
   - ansible-playbook tests/test.yml -i tests/inventory --syntax-check
 
-
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
 
-
 branches:
   only: [master]
-
-# EOF

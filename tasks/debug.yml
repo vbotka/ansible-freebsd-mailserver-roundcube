@@ -1,70 +1,83 @@
 ---
-
 - name: Debug
   vars:
     msg: |-
-      ansible_architecture [{{ ansible_architecture }}]
-      ansible_os_family [{{ ansible_os_family }}]
-      ansible_distribution [{{ ansible_distribution }}]
-      ansible_distribution_major_version [{{ ansible_distribution_major_version }}]
-      ansible_distribution_version [{{ ansible_distribution_version }}]
-      ansible_distribution_release [{{ ansible_distribution_release }}]
-      ansible_python_version [{{ ansible_python_version }}]
+      fm_roundcube_role_version: {{ fm_roundcube_role_version }}
+      ansible_architecture: {{ ansible_architecture }}
+      ansible_os_family: {{ ansible_os_family }}
+      ansible_distribution: {{ ansible_distribution }}
+      ansible_distribution_major_version: {{ ansible_distribution_major_version }}
+      ansible_distribution_version: {{ ansible_distribution_version }}
+      ansible_distribution_release: {{ ansible_distribution_release }}
+      ansible_python_version: {{ ansible_python_version }}
 
-      fm_roundcube_backup_conf [{{ fm_roundcube_backup_conf }}]
-      fm_roundcube_apache [{{ fm_roundcube_apache }}]
-      fm_roundcube_apache_version [{{ fm_roundcube_apache_version }}]
-      fm_reload_webserver [{{ fm_reload_webserver }}]
-      fm_roundcube_initial_sql [{{ fm_roundcube_initial_sql }}]
-      fm_roundcube_initial_mysql [{{ fm_roundcube_initial_mysql }}]
-      roundcube_mysql_server_conf [{{ roundcube_mysql_server_conf }}]
+      fm_roundcube_backup_conf: {{ fm_roundcube_backup_conf }}
+      fm_roundcube_apache: {{ fm_roundcube_apache }}
+      fm_roundcube_apache_version: {{ fm_roundcube_apache_version }}
+      fm_roundcube_initial_sql: {{ fm_roundcube_initial_sql }}
+      fm_roundcube_initial_mysql: {{ fm_roundcube_initial_mysql }}
+      fm_roundcube_copy_favicon: {{ fm_roundcube_copy_favicon }}
+      fm_roundcube_audit: {{ fm_roundcube_audit }}
+      fm_reload_webserver: {{ fm_reload_webserver }}
 
-      roundcube_zoneinfo [{{ roundcube_zoneinfo }}]
-      roundcube_debug_level [{{ roundcube_debug_level }}]
-      roundcube_smtp_server [{{ roundcube_smtp_server }}]
-      roundcube_support_url [{{ roundcube_support_url }}]
-      roundcube_product_name [{{ roundcube_product_name }}]
-      roundcube_data_owner [{{ roundcube_data_owner }}]
-      roundcube_data_group [{{ roundcube_data_group }}]
-      roundcube_data_mode [{{ roundcube_data_mode }}]
+      roundcube_mysql_server_conf: {{ roundcube_mysql_server_conf }}
 
-      roundcube_plugins_dir [{{ roundcube_plugins_dir }}]
-      roundcube_plugins_all
-      {{ roundcube_plugins_all|to_yaml }}
-      roundcube_plugins_enabled
-      {{ roundcube_plugins_enabled|to_yaml }}
-      roundcube_plugins_conf
-      {{ roundcube_plugins_conf|to_nice_yaml }}
-      roundcube_enigma_pgp_homedir [{{ roundcube_enigma_pgp_homedir }}]
-      roundcube_enigma_owner [{{ roundcube_enigma_owner }}]
-      roundcube_enigma_group [{{ roundcube_enigma_group }}]
-      roundcube_enigma_mode [{{ roundcube_enigma_mode }}]
+      roundcube_data_dir: {{ roundcube_data_dir }}
+      roundcube_data_owner: {{ roundcube_data_owner }}
+      roundcube_data_group: {{ roundcube_data_group }}
+      roundcube_data_mode: {{ roundcube_data_mode }}
 
-      freebsd_install_method [{{ freebsd_install_method }}]
-      freebsd_use_packages [{{ freebsd_use_packages }}]
-      freebsd_install_retries [{{ freebsd_install_retries }}]
-      freebsd_install_delay [{{ freebsd_install_delay }}]
+      roundcube_imap_host: {{ roundcube_imap_host }}
+      roundcube_smtp_host: {{ roundcube_smtp_host }}
+      roundcube_smtp_port: {{ roundcube_smtp_port }}
+      roundcube_smtp_user: {{ roundcube_smtp_user }}
+      roundcube_smtp_pass: {{ roundcube_smtp_pass }}
+      roundcube_support_url: {{ roundcube_support_url }}
+      roundcube_product_name: {{ roundcube_product_name }}
+      roundcube_des_key: {{ roundcube_des_key }}
+      roundcube_skin: {{ roundcube_skin }}
+      roundcube_spellcheck_engine: {{ roundcube_spellcheck_engine }}
 
-      bsd_mysql_version [{{ bsd_mysql_version }}]
-      bsd_php_version [{{ bsd_php_version }}]
-      bsd_php_ini_conf
-      {{ bsd_php_ini_conf|to_yaml }}
-      roundcube_packages
-      {{ roundcube_packages|to_yaml }}
-      roundcube_aspell_packages
-      {{ roundcube_aspell_packages|to_yaml }}
+      roundcube_zoneinfo: {{ roundcube_zoneinfo }}
+
+      roundcube_plugins_dir: {{ roundcube_plugins_dir }}
+      roundcube_plugins_all:
+        {{ roundcube_plugins_all | to_yaml(indent=2) | indent(2) }}
+      roundcube_plugins_enabled:
+        {{ roundcube_plugins_enabled | to_yaml(indent=2) | indent(2) }}
+      roundcube_plugins_conf:
+        {{ roundcube_plugins_conf | to_yaml(indent=2) | indent(2) }}
+      roundcube_enigma_pgp_homedir: {{ roundcube_enigma_pgp_homedir }}
+      roundcube_enigma_owner: {{ roundcube_enigma_owner }}
+      roundcube_enigma_group: {{ roundcube_enigma_group }}
+      roundcube_enigma_mode: {{ roundcube_enigma_mode }}
+
+      freebsd_install_method: {{ freebsd_install_method }}
+      freebsd_use_packages: {{ freebsd_use_packages }}
+      freebsd_install_retries: {{ freebsd_install_retries }}
+      freebsd_install_delay: {{ freebsd_install_delay }}
+
+      bsd_mysql_version: {{ bsd_mysql_version }}
+      bsd_php_version: {{ bsd_php_version }}
+      bsd_php_ini_file: {{ bsd_php_ini_file }}
+      bsd_php_ini_conf:
+        {{ bsd_php_ini_conf | to_yaml(indent=2) | indent(2) }}
+      roundcube_packages:
+        {{ roundcube_packages | to_nice_yaml(indent=2) | indent(2) }}
+      roundcube_aspell_packages:
+        {{ roundcube_aspell_packages | to_nice_yaml(indent=2) | indent(2) }}
+      roundcube_favicon_file: {{ roundcube_favicon_file }}
   ansible.builtin.debug:
     msg: "{{ '{}'.format(msg) }}"
 
 - name: Debug classified
   vars:
     msg: |-
-      roundcube_mysql_password [{{ roundcube_mysql_password }}]
-      postfix_smtp_sasl_passwords
-      {{ postfix_smtp_sasl_passwords|to_yaml }}
+      roundcube_mysql_password: {{ roundcube_mysql_password }}
+      postfix_smtp_sasl_passwords:
+        {{ postfix_smtp_sasl_passwords | to_yaml(indent=2) | indent(2) }}
   ansible.builtin.debug:
     msg: "{{ '{}'.format(msg) }}"
-  when: fm_roundcube_debug_classified|bool
+  when: fm_roundcube_debug_classified | bool
 
 # EOF
-...

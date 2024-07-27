@@ -1,6 +1,5 @@
 ---
-
-- name: "plugins: Create configuration files when does not exist"
+- name: "Plugins: Create configuration files when does not exist"
   ansible.builtin.copy:
     remote_src: true
     force: false
@@ -15,21 +14,19 @@
   notify: "{{ fm_reload_webserver }}"
   tags: fm_roundcube_plugins_conf_create
 
-- name: "plugins: Configure"
+- name: "Plugins: Configure"
   ansible.builtin.lineinfile:
     path: "{{ roundcube_plugins_dir }}/{{ item.0.key }}/config.inc.php"
     owner: "{{ roundcube_data_owner }}"
     group: "{{ roundcube_data_group }}"
     mode: "{{ roundcube_data_mode }}"
     backup: "{{ apache_backup_conf }}"
-    regex: "^\\s*\\$config\\[\\s*'{{ item.1.key }}'\\s*\\]\\s*=(.*)$"
-    line: "$config['{{ item.1.key }}'] = {{ item.1.val }};"
-  loop: "{{ query('subelements',
-                  roundcube_plugins_conf|dict2items,
-                  'value.conf',
-                  {'skip_missing': True}) }}"
+    regex: ^\s*\$config\[\s*'{{ item.1.key }}'\s*\]\s*=(.*)$
+    line: $config['{{ item.1.key }}'] = {{ item.1.val }};
+  loop: "{{ roundcube_plugins_conf | dict2items | subelements('value.conf', skip_missing=true) }}"
+  loop_control:
+    label: "{{ item.0.key }} {{ item.1.key }}={{ item.1.val }}"
   notify: "{{ fm_reload_webserver }}"
   tags: fm_roundcube_plugins_conf
 
 # EOF
-...

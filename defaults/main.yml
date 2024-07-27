@@ -1,5 +1,6 @@
 ---
 # defaults for freebsd_mailserver_roundcube
+fm_roundcube_role_version: 2.6.0
 
 fm_roundcube_install: true
 fm_roundcube_debug: false
@@ -8,6 +9,8 @@ fm_roundcube_backup_conf: false
 
 fm_roundcube_initial_sql: false
 fm_roundcube_initial_mysql: true
+fm_roundcube_copy_favicon: false
+fm_roundcube_audit: false
 
 freebsd_install_method: packages
 # freebsd_install_method: ports
@@ -15,34 +18,52 @@ freebsd_install_method: packages
 freebsd_install_retries: 10
 freebsd_install_delay: 5
 
-# WebServer - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Apache - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 fm_roundcube_apache: true
 fm_roundcube_apache_version: "24"
 
 # MySQL - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 # Change MYSQL-PASSWORD for roundcube
-bsd_mysql_version: "80"
+bsd_mysql_version: "81"
 roundcube_mysql_password: MYSQL-PASSWORD
 roundcube_mysql_server_conf: /usr/local/etc/mysql/my.cnf
 
 # PHP - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-bsd_php_version: "74"
+
+# /usr/local/etc/php.ini
+roundcube_zoneinfo: UTC
+bsd_php_version: "83"
+bsd_php_ini_file: /usr/local/etc/php.ini
 bsd_php_ini_conf:
-  - {regex: "date.timezone", val: "{{ roundcube_zoneinfo }}", after: "date.timezone"}
+  - { regex: date.timezone, val: "{{ roundcube_zoneinfo }}", after: date.timezone }
 
 # Roundcube - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-roundcube_zoneinfo: UTC
-roundcube_debug_level: 5
-roundcube_smtp_server: localhost
-roundcube_support_url: www.example.com/support/
-roundcube_product_name: example.com Roundcube Webmail
 
+roundcube_data_dir: /usr/local/www/roundcube
 roundcube_data_owner: www
 roundcube_data_group: wheel
-roundcube_data_mode: "u=rwX,g=rX-w,o=-rwx"
+roundcube_data_mode: u=rwX,g=rX-w,o=-rwx
+
+# config/config.inc.php
+roundcube_imap_host: localhost
+roundcube_smtp_host: localhost
+roundcube_smtp_port: 25
+roundcube_smtp_user: ''
+roundcube_smtp_pass: ''
+roundcube_support_url: www.example.com/support/
+roundcube_product_name: example.com Roundcube Webmail
+roundcube_des_key: 'MY_DES_KEY'
+roundcube_skin: elastic
+roundcube_spellcheck_engine: pspell
+
+# config/defaults.inc.php
+# TODO
 
 # Plugins - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-roundcube_plugins_dir: /usr/local/www/roundcube/plugins
+
+roundcube_plugins_dir: "{{ roundcube_data_dir }}/plugins"
 
 # roundcube_plugins_conf ... Configuratino of plugins
 # key ...................... Plugin name
@@ -80,66 +101,74 @@ roundcube_plugins_conf:
       - key: enigma_pgp_digest_algo
         val: "'SHA512'"
 
-roundcube_plugins_all: "{{ roundcube_plugins_conf.keys()|list|sort }}"
-roundcube_plugins_enabled: "{{ roundcube_plugins_conf|dict2items|
-                               selectattr('value.enabled')|
-                               map(attribute='key')|list|sort }}"
+roundcube_plugins_all: "{{ roundcube_plugins_conf.keys() | list | sort }}"
+roundcube_plugins_enabled: "{{ roundcube_plugins_conf | dict2items |
+                               selectattr('value.enabled') |
+                               map(attribute='key') |
+                               list | sort }}"
 
 # Enigma plugin. PGP (RFC 2440) and PGP/MIME (RFC 3156)
 roundcube_enigma_pgp_homedir: /var/db/roundcube/enigma
 roundcube_enigma_owner: www
 roundcube_enigma_group: wheel
-roundcube_enigma_mode: "u=rwX,g=rX-w,o=-rwx"
+roundcube_enigma_mode: u=rwX,g=rX-w,o=-rwx
 
 # Packages - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 roundcube_aspell_packages:
   - textproc/aspell
   - textproc/en-aspell
 
 roundcube_packages:
-  - "roundcube-php{{ bsd_php_version }}"
-  - "mysql{{ bsd_mysql_version }}-client"
-  - "mysql{{ bsd_mysql_version }}-server"
-  - "mod_php{{ bsd_php_version }}"
-  - "php{{ bsd_php_version }}"
-  - "php{{ bsd_php_version }}-bz2"
-  - "php{{ bsd_php_version }}-ctype"
-  - "php{{ bsd_php_version }}-curl"
-  - "php{{ bsd_php_version }}-dom"
-  - "php{{ bsd_php_version }}-exif"
-  - "php{{ bsd_php_version }}-extensions"
-  - "php{{ bsd_php_version }}-fileinfo"
-  - "php{{ bsd_php_version }}-filter"
-  - "php{{ bsd_php_version }}-ftp"
-  - "php{{ bsd_php_version }}-gd"
-# - "php{{ bsd_php_version }}-hash"  # The hash module is now part of the PHP core
-  - "php{{ bsd_php_version }}-iconv"
-  - "php{{ bsd_php_version }}-json"
-  - "php{{ bsd_php_version }}-ldap"
-  - "php{{ bsd_php_version }}-mbstring"
-  - "php{{ bsd_php_version }}-mysqli"
-  - "php{{ bsd_php_version }}-opcache"
-  - "php{{ bsd_php_version }}-openssl"
-  - "php{{ bsd_php_version }}-pdo"
-  - "php{{ bsd_php_version }}-pdo_mysql"
-  - "php{{ bsd_php_version }}-pdo_sqlite"
-  - "php{{ bsd_php_version }}-phar"
-  - "php{{ bsd_php_version }}-posix"
-  - "php{{ bsd_php_version }}-pspell"
-  - "php{{ bsd_php_version }}-session"
-  - "php{{ bsd_php_version }}-simplexml"
-  - "php{{ bsd_php_version }}-sqlite3"
-  - "php{{ bsd_php_version }}-tokenizer"
-# - "php{{ bsd_php_version }}-wddx"  # Deprecated
-  - "php{{ bsd_php_version }}-xml"
-  - "php{{ bsd_php_version }}-xmlreader"
-  - "php{{ bsd_php_version }}-xmlwriter"
-  - "php{{ bsd_php_version }}-xsl"
-  - "php{{ bsd_php_version }}-zip"
-  - "php{{ bsd_php_version }}-zlib"
-  - "php{{ bsd_php_version }}-pecl-mcrypt"
-# - "php{{ bsd_php_version }}-mcrypt"
-# - "php{{ bsd_php_version }}-mysql"
+  - roundcube-php{{ bsd_php_version }}
+  - mysql{{ bsd_mysql_version }}-client
+  - mysql{{ bsd_mysql_version }}-server
+  - mod_php{{ bsd_php_version }}
+  - php{{ bsd_php_version }}
+  - php{{ bsd_php_version }}-bz2
+  - php{{ bsd_php_version }}-ctype
+  - php{{ bsd_php_version }}-curl
+  - php{{ bsd_php_version }}-dom
+  - php{{ bsd_php_version }}-exif
+  - php{{ bsd_php_version }}-extensions
+  - php{{ bsd_php_version }}-fileinfo
+  - php{{ bsd_php_version }}-filter
+  - php{{ bsd_php_version }}-ftp
+  - php{{ bsd_php_version }}-gd
+  - php{{ bsd_php_version }}-iconv
+  - php{{ bsd_php_version }}-ldap
+  - php{{ bsd_php_version }}-mbstring
+  - php{{ bsd_php_version }}-mysqli
+  - php{{ bsd_php_version }}-opcache
+  - php{{ bsd_php_version }}-pdo
+  - php{{ bsd_php_version }}-pdo_mysql
+  - php{{ bsd_php_version }}-pdo_sqlite
+  - php{{ bsd_php_version }}-pecl-imagick
+  - php{{ bsd_php_version }}-pecl-mcrypt
+  - php{{ bsd_php_version }}-phar
+  - php{{ bsd_php_version }}-posix
+  - php{{ bsd_php_version }}-pspell
+  - php{{ bsd_php_version }}-session
+  - php{{ bsd_php_version }}-simplexml
+  - php{{ bsd_php_version }}-sqlite3
+  - php{{ bsd_php_version }}-tokenizer
+  - php{{ bsd_php_version }}-xml
+  - php{{ bsd_php_version }}-xmlreader
+  - php{{ bsd_php_version }}-xmlwriter
+  - php{{ bsd_php_version }}-xsl
+  - php{{ bsd_php_version }}-zip
+  - php{{ bsd_php_version }}-zlib
+# Deprecated
+# The hash module is now part of the PHP core
+# - php{{ bsd_php_version }}-hash
+# - php{{ bsd_php_version }}-json
+# - php{{ bsd_php_version }}-mcrypt
+# - php{{ bsd_php_version }}-mysql
+# - php{{ bsd_php_version }}-openssl
+# - php{{ bsd_php_version }}-wddx
+
+# favicon.ico - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+roundcube_favicon_file: favicon.ico
 
 # EOF
-...

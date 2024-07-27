@@ -1,30 +1,22 @@
 ---
+- name: "Permissions: Set owner, grouip and permisions of /usr/local/www/roundcube"
+  ansible.builtin.file:
+    state: directory
+    recurse: true
+    owner: "{{ roundcube_data_owner }}"
+    group: "{{ roundcube_data_group }}"
+    mode: "{{ roundcube_data_mode }}"
+    path: /usr/local/www/roundcube
+  tags: fm_roundcube_permissions
 
-- name: "permissions: chown -R {{ roundcube_data_owner }}:{{ roundcube_data_group }} /usr/local/www/roundcube"
-  ansible.builtin.command:
-    cmd: "chown -R {{ roundcube_data_owner }}:{{ roundcube_data_group }} roundcube"
-    chdir: /usr/local/www
-    warn: false
-  changed_when: false
-  tags: fm_roundcube_permissions_chown
-
-- name: "permissions: chmod -R {{ roundcube_data_mode }} /usr/local/www/roundcube"
-  ansible.builtin.command:
-    cmd: "chmod -R {{ roundcube_data_mode }} /usr/local/www/roundcube"
-    chdir: /usr/local/www
-    warn: false
-  changed_when: false
-  tags: fm_roundcube_permissions_chmod
-
-- name: "permissions: Enigma plugin: Create {{ roundcube_enigma_pgp_homedir }}"
+- name: "Permissions: Enigma plugin: Create {{ roundcube_enigma_pgp_homedir }}"
   ansible.builtin.file:
     state: directory
     path: "{{ roundcube_enigma_pgp_homedir }}"
     owner: "{{ roundcube_enigma_owner }}"
     group: "{{ roundcube_enigma_group }}"
     mode: "{{ roundcube_enigma_mode }}"
-  when: roundcube_plugins_conf.enigma.enabled|default(false)|bool
+  when: roundcube_plugins_conf.enigma.enabled | d(false) | bool
   tags: fm_roundcube_permissions_enigma
 
 # EOF
-...

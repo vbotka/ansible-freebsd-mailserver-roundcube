@@ -1,23 +1,21 @@
 <?php
 /* {{ ansible_managed }} */
 $config = {{ 'array' }}();
-$config['debug_level'] = 5;
 $config['db_dsnw'] = 'mysql://roundcube:{{ roundcube_mysql_password }}@localhost/roundcube';
-$config['default_host'] = 'localhost';
-$config['smtp_server'] = '{{ roundcube_smtp_server }}';
-$config['smtp_port'] = 25;
-$config['smtp_user'] = '';
-$config['smtp_pass'] = '';
+$config['imap_host'] = '{{ roundcube_imap_host }}';
+$config['smtp_host'] = '{{ roundcube_smtp_host }}';
+$config['smtp_port'] = {{ roundcube_smtp_port }};
+$config['smtp_user'] = '{{ roundcube_smtp_user }}';
+$config['smtp_pass'] = '{{ roundcube_smtp_pass }}';
 $config['support_url'] = '{{ roundcube_support_url }}';
 $config['product_name'] = '{{ roundcube_product_name }}';
-$config['des_key'] = 'rcmail-!24ByteDESkey*Str';
+$config['des_key'] = '{{ roundcube_des_key }}';
 $config['plugins'] = [
 {% for plugin in roundcube_plugins_enabled %}
     '{{ plugin }}',
 {% endfor %}
 ];
-$config['skin'] = 'larry';
-$config['spellcheck_engine'] = 'pspell';
-$config['preview_pane'] = true;
+$config['skin'] = '{{ roundcube_skin }}';
+$config['spellcheck_engine'] = '{{ roundcube_spellcheck_engine }}';
 $config['mime_types'] = '/usr/local/etc/apache{{ fm_roundcube_apache_version }}/mime.types';
 $config['enable_installer'] = false;

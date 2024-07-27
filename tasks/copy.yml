@@ -1,12 +1,19 @@
 ---
-
-- name: "copy: Create /usr/local/etc/php.ini"
+- name: "Copy: Create /usr/local/etc/php.ini"
   ansible.builtin.copy:
     src: /usr/local/etc/php.ini-production
     dest: /usr/local/etc/php.ini
     mode: preserve
     force: false
     remote_src: true
+  tags: fm_roundcube_copy_phpini
+
+- name: "Copy: {{ roundcube_data_dir ~ '/' ~ roundcube_favicon_file }}"
+  ansible.builtin.copy:
+    src: "{{ roundcube_favicon_file }}"
+    dest: "{{ roundcube_data_dir }}/{{ roundcube_favicon_file }}"
+    mode: "{{ roundcube_data_mode }}"
+  when: fm_roundcube_copy_favicon | bool
+  tags: fm_roundcube_copy_favicon
 
 # EOF
-...
