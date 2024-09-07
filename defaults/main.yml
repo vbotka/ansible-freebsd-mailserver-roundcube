@@ -1,6 +1,6 @@
 ---
 # defaults for freebsd_mailserver_roundcube
-fm_roundcube_role_version: 2.6.0
+fm_roundcube_role_version: 2.6.1
 
 fm_roundcube_install: true
 fm_roundcube_debug: false
