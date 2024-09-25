@@ -4,6 +4,7 @@ vbotka.freebsd_mailserver_roundcube 2.6 Release Notes
 
 .. contents:: Topics
 # BEGIN Commits 2.6.1
+- Update python 3.11 in .travis.yml
 - Update tests/test.yml playbook
 - Start devel 2.6.1
 # END Commits 2.6.1
@@ -16,6 +17,10 @@ Major Changes
 -------------
 Minor Changes
 -------------
+- Update python 3.11 in .travis.yml
+- Update tests/test.yml playbook
+- Start devel 2.6.1
+
 Bugfixes
 --------
 Breaking Changes / Porting Guide
